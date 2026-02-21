@@ -1,43 +1,135 @@
-import { initializeApp }          from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import {
-  getFirestore, collection, addDoc, onSnapshot,
-  query, orderBy, doc, updateDoc, increment
-} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-import {
-  getStorage, ref, uploadBytes, getDownloadURL
-} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js';
+// ── Sample Photos ──────────────────────────────────────────────────────────
+const SAMPLE_PHOTOS = [
+  {
+    id: 's1',
+    url: 'https://images.unsplash.com/photo-1583512654167-b60a09b7e2f1?w=600&auto=format&fit=crop',
+    title: '진도 섬의 진돗개',
+    desc: '전남 진도에서 만난 순수 진돗개. 눈빛이 정말 맑아요.',
+    author: '진도사랑',
+    likes: 128,
+    createdAt: Date.now() - 864e5 * 7,
+    sample: true
+  },
+  {
+    id: 's2',
+    url: 'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=600&auto=format&fit=crop',
+    title: '하얀 진돗개',
+    desc: '백구라고 불리는 하얀 진돗개. 정말 우아해요.',
+    author: 'PureJindo',
+    likes: 95,
+    createdAt: Date.now() - 864e5 * 5,
+    sample: true
+  },
+  {
+    id: 's3',
+    url: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600&auto=format&fit=crop',
+    title: '산책하는 진돗개',
+    desc: '아침 산책길에서 만난 활기찬 진돗개.',
+    author: 'Morning Walk',
+    likes: 74,
+    createdAt: Date.now() - 864e5 * 4,
+    sample: true
+  },
+  {
+    id: 's4',
+    url: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&auto=format&fit=crop',
+    title: '들판의 진돗개',
+    desc: '넓은 들판을 달리는 자유로운 진돗개.',
+    author: '들판지기',
+    likes: 203,
+    createdAt: Date.now() - 864e5 * 3,
+    sample: true
+  },
+  {
+    id: 's5',
+    url: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=600&auto=format&fit=crop',
+    title: '귀여운 황구',
+    desc: '진돗개의 대표 색상인 황구. 눈빛이 영리해요.',
+    author: 'JindoFan',
+    likes: 156,
+    createdAt: Date.now() - 864e5 * 2,
+    sample: true
+  },
+  {
+    id: 's6',
+    url: 'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&auto=format&fit=crop',
+    title: '해변의 진돗개',
+    desc: '바다를 배경으로 시원하게 뛰어노는 진돗개.',
+    author: 'SeaJindo',
+    likes: 89,
+    createdAt: Date.now() - 864e5 * 1,
+    sample: true
+  },
+  {
+    id: 's7',
+    url: 'https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?w=600&auto=format&fit=crop',
+    title: '낮잠 자는 진돗개',
+    desc: '햇살 좋은 오후, 편안히 낮잠 중인 진돗개.',
+    author: 'NapTime',
+    likes: 312,
+    createdAt: Date.now() - 864e5 * 0.5,
+    sample: true
+  },
+  {
+    id: 's8',
+    url: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop',
+    title: '강아지 때의 진돗개',
+    desc: '어릴 때부터 위풍당당한 진돗개 강아지.',
+    author: 'BabyJindo',
+    likes: 441,
+    createdAt: Date.now() - 864e5 * 0.2,
+    sample: true
+  },
+  {
+    id: 's9',
+    url: 'https://images.unsplash.com/photo-1588269845464-8993565cac3a?w=600&auto=format&fit=crop',
+    title: '숲속의 진돗개',
+    desc: '초록 숲 속에서 탐험하는 늠름한 진돗개.',
+    author: 'Forest_Jindo',
+    likes: 67,
+    createdAt: Date.now() - 864e5 * 0.1,
+    sample: true
+  },
+  {
+    id: 's10',
+    url: 'https://images.unsplash.com/photo-1529429225476-8a6d1b06d6d3?w=600&auto=format&fit=crop',
+    title: '겨울 진돗개',
+    desc: '눈 위에서도 활발한 진돗개의 강인한 모습.',
+    author: 'WinterDog',
+    likes: 188,
+    createdAt: Date.now() - 864e5 * 0.05,
+    sample: true
+  }
+];
 
-// ── Firebase 설정 ──────────────────────────────────────────────────────────
-// 1. https://console.firebase.google.com 에서 프로젝트를 만드세요.
-// 2. Firestore Database → 시작하기 (테스트 모드)
-// 3. Storage → 시작하기 (테스트 모드)
-// 4. 프로젝트 설정 → 앱 추가 → 웹 → 아래에 값 붙여넣기
-const firebaseConfig = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId:             "YOUR_APP_ID"
-};
-// ──────────────────────────────────────────────────────────────────────────
+// ── Storage Keys ───────────────────────────────────────────────────────────
+const KEY_PHOTOS = 'jb_photos';
+const KEY_LIKED  = 'jb_liked';
+const KEY_LIKES  = 'jb_likes';
 
-const isConfigured = Object.values(firebaseConfig).every(v => !v.startsWith('YOUR_'));
+// ── State ──────────────────────────────────────────────────────────────────
+let allPhotos      = [];
+let currentPhotoId = null;
+let selectedFile   = null;
+let toastTimer     = null;
 
-let db, storage;
-if (isConfigured) {
-  const app = initializeApp(firebaseConfig);
-  db      = getFirestore(app);
-  storage = getStorage(app);
-} else {
-  console.warn('⚠️  Firebase 설정이 필요합니다. main.js의 firebaseConfig를 채워주세요.');
+const likedSet = new Set(JSON.parse(localStorage.getItem(KEY_LIKED) || '[]'));
+const likeCounts = JSON.parse(localStorage.getItem(KEY_LIKES) || '{}');
+
+function saveLiked() {
+  localStorage.setItem(KEY_LIKED, JSON.stringify([...likedSet]));
+  localStorage.setItem(KEY_LIKES, JSON.stringify(likeCounts));
+}
+
+function getLikeCount(photo) {
+  if (photo.id in likeCounts) return likeCounts[photo.id];
+  return photo.likes || 0;
 }
 
 // ── DOM refs ───────────────────────────────────────────────────────────────
 const grid          = document.getElementById('photo-grid');
 const loadingEl     = document.getElementById('loading');
 const emptyEl       = document.getElementById('empty-state');
-const setupEl       = document.getElementById('setup-notice');
 const modalOverlay  = document.getElementById('modal-overlay');
 const openUploadBtn = document.getElementById('open-upload');
 const modalCloseBtn = document.getElementById('modal-close');
@@ -66,15 +158,6 @@ const lightboxLike  = document.getElementById('lightbox-like');
 const lightboxLikeCount = document.getElementById('lightbox-like-count');
 const toastEl       = document.getElementById('toast');
 
-// ── State ──────────────────────────────────────────────────────────────────
-let allPhotos      = [];
-let currentPhotoId = null;
-let selectedFile   = null;
-let toastTimer     = null;
-
-const likedSet = new Set(JSON.parse(localStorage.getItem('jb_liked') || '[]'));
-const saveLiked = () => localStorage.setItem('jb_liked', JSON.stringify([...likedSet]));
-
 // ── Toast ──────────────────────────────────────────────────────────────────
 function showToast(msg, duration = 2600) {
   clearTimeout(toastTimer);
@@ -102,7 +185,7 @@ function resetForm() {
   titleInput.value = '';
   descInput.value = '';
   authorInput.value = '';
-  setLoading(false);
+  setSubmitLoading(false);
 }
 
 openUploadBtn.addEventListener('click', openModal);
@@ -138,100 +221,121 @@ dropZone.addEventListener('drop', (e) => {
   handleFile(e.dataTransfer.files[0]);
 });
 
+// ── Image Resize (canvas) ──────────────────────────────────────────────────
+function resizeImage(file, maxDim = 1200, quality = 0.82) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > maxDim || height > maxDim) {
+        if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
+        else { width = Math.round(width * maxDim / height); height = maxDim; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
 // ── Upload ─────────────────────────────────────────────────────────────────
-function setLoading(on) {
+function setSubmitLoading(on) {
   submitBtn.disabled = on;
   submitLabel.classList.toggle('hidden', on);
   btnSpinner.classList.toggle('hidden', !on);
 }
 
 submitBtn.addEventListener('click', async () => {
-  if (!isConfigured) {
-    showToast('Firebase 설정이 필요합니다.');
-    return;
-  }
-  if (!selectedFile)            { showToast('사진을 선택해주세요.');         return; }
-  if (!titleInput.value.trim()) { showToast('제목을 입력해주세요.');          return; }
+  if (!selectedFile)            { showToast('사진을 선택해주세요.');           return; }
+  if (!titleInput.value.trim()) { showToast('제목을 입력해주세요.');            return; }
   if (!authorInput.value.trim()){ showToast('이름 또는 닉네임을 입력해주세요.'); return; }
 
-  setLoading(true);
+  setSubmitLoading(true);
   try {
-    const ext      = selectedFile.name.split('.').pop();
-    const filename = `photos/${Date.now()}.${ext}`;
-    const storRef  = ref(storage, filename);
+    const dataUrl = await resizeImage(selectedFile);
 
-    await uploadBytes(storRef, selectedFile);
-    const url = await getDownloadURL(storRef);
-
-    await addDoc(collection(db, 'photos'), {
-      url,
+    const newPhoto = {
+      id:        'u_' + Date.now(),
+      url:       dataUrl,
       title:     titleInput.value.trim(),
       desc:      descInput.value.trim(),
       author:    authorInput.value.trim(),
       likes:     0,
-      createdAt: new Date()
-    });
+      createdAt: Date.now()
+    };
+
+    const saved = JSON.parse(localStorage.getItem(KEY_PHOTOS) || '[]');
+    saved.unshift(newPhoto);
+    localStorage.setItem(KEY_PHOTOS, JSON.stringify(saved));
 
     closeModal();
+    loadAndRender();
     showToast('🐕 사진이 업로드됐어요!');
   } catch (err) {
     console.error(err);
     showToast('업로드 중 오류가 발생했습니다. 다시 시도해주세요.');
-    setLoading(false);
+    setSubmitLoading(false);
   }
 });
 
 // ── Like ───────────────────────────────────────────────────────────────────
-async function toggleLike(id) {
-  if (!isConfigured) return;
+function toggleLike(id) {
   const liked = likedSet.has(id);
   const delta = liked ? -1 : 1;
+  if (liked) likedSet.delete(id); else likedSet.add(id);
 
-  if (liked) likedSet.delete(id);
-  else       likedSet.add(id);
+  const photo = allPhotos.find(p => p.id === id);
+  if (photo) {
+    likeCounts[id] = Math.max(0, getLikeCount(photo) + delta);
+  }
   saveLiked();
 
-  // Update all card like buttons for this photo
+  // Update all buttons with this photo id
   document.querySelectorAll(`.btn-like[data-id="${id}"]`).forEach(btn => {
     btn.classList.toggle('liked', !liked);
     const svg = btn.querySelector('svg');
     if (svg) svg.setAttribute('fill', !liked ? 'currentColor' : 'none');
-    const count = btn.querySelector('.like-count');
-    if (count) count.textContent = Math.max(0, parseInt(count.textContent || '0') + delta);
+    const countEl = btn.querySelector('.like-count');
+    if (countEl) countEl.textContent = likeCounts[id] ?? 0;
   });
-
-  try {
-    await updateDoc(doc(db, 'photos', id), { likes: increment(delta) });
-  } catch (err) {
-    // Rollback optimistic update
-    if (liked) likedSet.add(id); else likedSet.delete(id);
-    saveLiked();
-    console.error(err);
-  }
 }
 
 // ── Card ───────────────────────────────────────────────────────────────────
+function esc(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 function createCard(photo) {
   const liked = likedSet.has(photo.id);
+  const count = getLikeCount(photo);
   const card  = document.createElement('div');
   card.className = 'photo-card';
   card.dataset.id = photo.id;
 
   card.innerHTML = `
-    <img src="${photo.url}" alt="${escHtml(photo.title)}" loading="lazy">
+    <img src="${esc(photo.url)}" alt="${esc(photo.title)}" loading="lazy">
     <div class="card-overlay">
       <div class="card-overlay-text">
-        <h4>${escHtml(photo.title)}</h4>
-        <small>by ${escHtml(photo.author)}</small>
+        <h4>${esc(photo.title)}</h4>
+        <small>by ${esc(photo.author)}</small>
       </div>
     </div>
     <div class="card-footer">
-      <span class="card-title">${escHtml(photo.title)}</span>
-      <button class="btn-like ${liked ? 'liked' : ''}" data-id="${photo.id}" aria-label="좋아요">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="${liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+      <span class="card-title">${esc(photo.title)}</span>
+      <button class="btn-like ${liked ? 'liked' : ''}" data-id="${esc(photo.id)}" aria-label="좋아요">
+        <svg width="15" height="15" viewBox="0 0 24 24"
+             fill="${liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
         </svg>
-        <span class="like-count">${photo.likes || 0}</span>
+        <span class="like-count">${count}</span>
       </button>
     </div>
   `;
@@ -246,14 +350,6 @@ function createCard(photo) {
   return card;
 }
 
-function escHtml(str) {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
 // ── Render ─────────────────────────────────────────────────────────────────
 function renderPhotos(photos) {
   const q = searchInput.value.trim().toLowerCase();
@@ -266,13 +362,8 @@ function renderPhotos(photos) {
     : photos;
 
   grid.innerHTML = '';
-
-  if (list.length === 0) {
-    emptyEl.classList.remove('hidden');
-  } else {
-    emptyEl.classList.add('hidden');
-    list.forEach(p => grid.appendChild(createCard(p)));
-  }
+  emptyEl.classList.toggle('hidden', list.length > 0);
+  list.forEach(p => grid.appendChild(createCard(p)));
 }
 
 searchInput.addEventListener('input', () => renderPhotos(allPhotos));
@@ -283,22 +374,17 @@ function openLightbox(photo) {
 
   lightboxImg.src = photo.url;
   lightboxTitle.textContent = photo.title;
-
-  if (photo.desc) {
-    lightboxDesc.textContent = photo.desc;
-    lightboxDesc.style.display = '';
-  } else {
-    lightboxDesc.style.display = 'none';
-  }
-
+  lightboxDesc.textContent = photo.desc || '';
+  lightboxDesc.style.display = photo.desc ? '' : 'none';
   lightboxAuthor.textContent = `by ${photo.author}`;
-  lightboxLikeCount.textContent = photo.likes || 0;
+
+  const count = getLikeCount(photo);
+  lightboxLikeCount.textContent = count;
+  lightboxLike.dataset.id = photo.id;
 
   const liked = likedSet.has(photo.id);
-  lightboxLike.dataset.id = photo.id;
   lightboxLike.classList.toggle('liked', liked);
-  const svg = lightboxLike.querySelector('svg');
-  if (svg) svg.setAttribute('fill', liked ? 'currentColor' : 'none');
+  lightboxLike.querySelector('svg').setAttribute('fill', liked ? 'currentColor' : 'none');
 
   lightbox.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
@@ -320,26 +406,13 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') { closeLightbox(); closeModal(); }
 });
 
-// ── Init ───────────────────────────────────────────────────────────────────
-function init() {
-  if (!isConfigured) {
-    loadingEl.classList.add('hidden');
-    setupEl.classList.remove('hidden');
-    return;
-  }
-
-  const q = query(collection(db, 'photos'), orderBy('createdAt', 'desc'));
-
-  onSnapshot(q, (snap) => {
-    loadingEl.classList.add('hidden');
-    allPhotos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderPhotos(allPhotos);
-  }, (err) => {
-    console.error(err);
-    loadingEl.classList.add('hidden');
-    showToast('데이터를 불러오는 중 오류가 발생했습니다.');
-    emptyEl.classList.remove('hidden');
-  });
+// ── Load & Render ──────────────────────────────────────────────────────────
+function loadAndRender() {
+  const userPhotos = JSON.parse(localStorage.getItem(KEY_PHOTOS) || '[]');
+  allPhotos = [...userPhotos, ...SAMPLE_PHOTOS];
+  renderPhotos(allPhotos);
 }
 
-init();
+// ── Init ───────────────────────────────────────────────────────────────────
+loadingEl.classList.add('hidden');
+loadAndRender();

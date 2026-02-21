@@ -10,7 +10,6 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header class="header">
     <div class="header-inner">
       <a class="logo" href="#">
@@ -27,39 +26,21 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M12 5v14M5 12h14"/>
         </svg>
-        사진 올리기
+        <span>사진 올리기</span>
       </button>
     </div>
   </header>
 
-  <!-- Loading -->
   <div class="loading-screen" id="loading">
     <div class="spinner"></div>
   </div>
 
-  <!-- Setup Notice -->
-  <div class="setup-notice hidden" id="setup-notice">
-    <div class="setup-box">
-      <div class="setup-icon">⚙️</div>
-      <h2>Firebase 설정 필요</h2>
-      <p><code>main.js</code> 파일의 <code>firebaseConfig</code>를 Firebase 프로젝트 정보로 채워주세요.</p>
-      <ol>
-        <li><a href="https://console.firebase.google.com" target="_blank">Firebase 콘솔</a>에서 프로젝트 생성</li>
-        <li>Firestore Database, Storage 활성화</li>
-        <li>앱 등록 후 config 값을 <code>main.js</code>에 입력</li>
-      </ol>
-    </div>
-  </div>
-
-  <!-- Empty State -->
   <div class="empty-state hidden" id="empty-state">
     <div class="empty-icon">📷</div>
-    <h2>아직 올라온 사진이 없어요</h2>
-    <p>첫 번째 진돗개 사진을 올려보세요!</p>
-    <button class="btn-upload" onclick="document.getElementById('open-upload').click()">사진 올리기</button>
+    <h2>검색 결과가 없어요</h2>
+    <p>다른 키워드로 검색해보세요.</p>
   </div>
 
-  <!-- Masonry Grid -->
   <main class="masonry-grid" id="photo-grid"></main>
 
   <!-- Upload Modal -->
@@ -141,7 +122,6 @@
     </div>
   </div>
 
-  <!-- Toast -->
   <div class="toast hidden" id="toast"></div>
 
   <script type="module" src="main.js"></script>
