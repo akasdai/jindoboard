@@ -628,15 +628,40 @@ body {
 
 /* ── Responsive ───────────────────────────────────────────── */
 @media (max-width: 640px) {
+  /* Header: 제휴 버튼 숨김, 업로드 아이콘만 표시 */
   .search-bar { display: none; }
   .btn-upload span { display: none; }
   .btn-upload { padding: 0 14px; }
+  .btn-partner { display: none; }
+
+  /* Grid */
   .masonry-grid { columns: 160px; column-gap: 10px; padding: 12px 10px 40px; }
+
+  /* Lightbox: 패딩 축소, 세로 스택 */
+  .lightbox { padding: 8px; }
+  .lightbox-wrap {
+    max-height: 96vh;
+    border-radius: 16px;
+  }
   .lightbox-body { flex-direction: column; max-height: none; }
-  .lightbox-img-wrap img { max-height: 40vh; }
-  .lightbox-info { width: 100%; border-left: none; border-top: 1px solid var(--border); }
-  .lightbox-comments { padding: 16px 16px 24px; }
+  .lightbox-img-wrap img { max-height: 38vh; }
+
+  /* 정보 패널: 높이 제한 + 내부 스크롤으로 댓글 공간 확보 */
+  .lightbox-info {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    max-height: 22vh;
+    overflow-y: auto;
+  }
+
+  /* 댓글 영역 */
+  .lightbox-comments { padding: 14px 16px 24px; min-height: 120px; }
+
+  /* Modal */
   .modal { padding: 24px 18px; border-radius: 20px; }
+
+  /* Breed nav */
   .breed-nav { height: auto; }
   .breed-nav-inner { padding: 8px 12px; height: auto; }
 }
