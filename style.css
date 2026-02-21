@@ -552,6 +552,24 @@ body {
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
+/* ── Comments Section ────────────────────────────────────── */
+.comments-section {
+  background: #fff;
+  border-top: 1px solid var(--border);
+  margin-top: 16px;
+}
+.comments-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+.comments-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: var(--text);
+}
+
 /* ── Partnership Button ──────────────────────────────────── */
 .btn-partner {
   display: flex;

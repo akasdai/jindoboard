@@ -57,6 +57,26 @@
 
   <main class="masonry-grid" id="photo-grid"></main>
 
+  <section class="comments-section">
+    <div class="comments-inner">
+      <h2 class="comments-title">🐾 커뮤니티 댓글</h2>
+      <div id="disqus_thread"></div>
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https://akasdai.github.io/jindoboard/';
+          this.page.identifier = 'kdog-board-main';
+        };
+        (function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://jindoboard.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+      <noscript>댓글을 보려면 JavaScript를 활성화해주세요. <a href="https://disqus.com/?ref_noscript">Disqus 댓글</a></noscript>
+    </div>
+  </section>
+
   <!-- Upload Modal -->
   <div class="modal-overlay hidden" id="modal-overlay">
     <div class="modal">
