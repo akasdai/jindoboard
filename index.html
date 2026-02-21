@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JindoBoard — 진돗개 사진 공유</title>
+  <title>K-Dog Board — 한국 토종견 사진 공유</title>
+  <meta name="description" content="진돗개, 풍산개, 삽살개, 동경이, 제주개 등 한국 토종견 사진을 공유하고 발견하는 K-Dog 커뮤니티">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,14 +14,14 @@
   <header class="header">
     <div class="header-inner">
       <a class="logo" href="#">
-        <span class="logo-icon">🐕</span>
-        <span>JindoBoard</span>
+        <span class="logo-icon">🐾</span>
+        <span class="logo-text"><em class="logo-k">K</em>-Dog Board</span>
       </a>
       <div class="search-bar">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
-        <input type="text" id="search-input" placeholder="진돗개 사진 검색...">
+        <input type="text" id="search-input" placeholder="품종, 제목, 작가 검색...">
       </div>
       <button class="btn-upload" id="open-upload">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -31,14 +32,26 @@
     </div>
   </header>
 
+  <nav class="breed-nav" id="breed-nav">
+    <div class="breed-nav-inner">
+      <button class="breed-chip active" data-breed="">🐾 전체</button>
+      <button class="breed-chip" data-breed="진돗개">🟡 진돗개</button>
+      <button class="breed-chip" data-breed="풍산개">⚪ 풍산개</button>
+      <button class="breed-chip" data-breed="삽살개">🟣 삽살개</button>
+      <button class="breed-chip" data-breed="동경이">🟢 동경이</button>
+      <button class="breed-chip" data-breed="제주개">🟠 제주개</button>
+      <button class="breed-chip" data-breed="기타">⬜ 기타 / 믹스</button>
+    </div>
+  </nav>
+
   <div class="loading-screen" id="loading">
     <div class="spinner"></div>
   </div>
 
   <div class="empty-state hidden" id="empty-state">
-    <div class="empty-icon">📷</div>
+    <div class="empty-icon">🐾</div>
     <h2>검색 결과가 없어요</h2>
-    <p>다른 키워드로 검색해보세요.</p>
+    <p>다른 키워드나 품종을 선택해보세요.</p>
   </div>
 
   <main class="masonry-grid" id="photo-grid"></main>
@@ -51,7 +64,7 @@
           <path d="M18 6 6 18M6 6l12 12"/>
         </svg>
       </button>
-      <h2 class="modal-title">진돗개 사진 올리기</h2>
+      <h2 class="modal-title">🐾 K-Dog 사진 올리기</h2>
 
       <div class="drop-zone" id="drop-zone">
         <input type="file" id="file-input" accept="image/*" hidden>
@@ -72,6 +85,18 @@
 
       <div class="modal-fields">
         <div class="field">
+          <label for="photo-breed">품종 <span class="req">*</span></label>
+          <select id="photo-breed">
+            <option value="">품종을 선택해주세요</option>
+            <option value="진돗개">진돗개 (Jindo)</option>
+            <option value="풍산개">풍산개 (Pungsan)</option>
+            <option value="삽살개">삽살개 (Sapsali)</option>
+            <option value="동경이">동경이 (Donggyeongi)</option>
+            <option value="제주개">제주개 (Jeju)</option>
+            <option value="기타">기타 / 믹스</option>
+          </select>
+        </div>
+        <div class="field">
           <label for="photo-title">제목 <span class="req">*</span></label>
           <input type="text" id="photo-title" placeholder="예: 우리 집 진돌이" maxlength="80">
         </div>
@@ -81,7 +106,7 @@
         </div>
         <div class="field">
           <label for="author-name">이름 / 닉네임 <span class="req">*</span></label>
-          <input type="text" id="author-name" placeholder="예: 진도사랑" maxlength="30">
+          <input type="text" id="author-name" placeholder="예: 토종견사랑" maxlength="30">
         </div>
       </div>
 
@@ -106,6 +131,7 @@
           <img id="lightbox-img" src="" alt="">
         </div>
         <div class="lightbox-info">
+          <span class="breed-badge lightbox-breed hidden" id="lightbox-breed"></span>
           <h3 id="lightbox-title"></h3>
           <p id="lightbox-desc"></p>
           <div class="lightbox-meta">

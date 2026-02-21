@@ -1,15 +1,17 @@
 /* ── Variables ───────────────────────────────────────────── */
 :root {
-  --bg: #efefef;
+  --bg: #f0f1f3;
   --card: #fff;
   --text: #111;
   --text-muted: #767676;
   --border: #e0e0e0;
-  --red: #e60023;
-  --red-hover: #ad081b;
+  --primary: #c8102e;
+  --primary-hover: #9e0b22;
+  --accent: #003087;
   --radius-card: 16px;
   --radius-btn: 24px;
   --header-h: 64px;
+  --breed-nav-h: 48px;
   --shadow: 0 1px 6px rgba(0,0,0,.1), 0 3px 12px rgba(0,0,0,.07);
   --shadow-hover: 0 4px 20px rgba(0,0,0,.18);
   --transition: 0.18s ease;
@@ -55,6 +57,13 @@ body {
   flex-shrink: 0;
 }
 .logo-icon { font-size: 1.4rem; }
+.logo-text { font-style: normal; }
+.logo-k {
+  font-style: normal;
+  color: var(--primary);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
 
 .search-bar {
   flex: 1;
@@ -88,7 +97,7 @@ body {
   display: flex;
   align-items: center;
   gap: 7px;
-  background: var(--red);
+  background: var(--primary);
   color: #fff;
   border: none;
   border-radius: var(--radius-btn);
@@ -102,14 +111,100 @@ body {
   flex-shrink: 0;
   transition: background var(--transition), transform var(--transition);
 }
-.btn-upload:hover { background: var(--red-hover); transform: scale(1.02); }
+.btn-upload:hover { background: var(--primary-hover); transform: scale(1.02); }
+
+/* ── Breed Navigation ─────────────────────────────────────── */
+.breed-nav {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 90;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: var(--breed-nav-h);
+  overflow: hidden;
+}
+.breed-nav-inner {
+  max-width: 1700px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.breed-nav-inner::-webkit-scrollbar { display: none; }
+
+.breed-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  color: var(--text-muted);
+  font-size: .8rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+.breed-chip:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: #fff5f5;
+}
+.breed-chip.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* ── Breed Badge ─────────────────────────────────────────── */
+.breed-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  line-height: 1.4;
+}
+.breed-badge[data-breed="진돗개"] { background: #fff3cd; color: #7d5a00; }
+.breed-badge[data-breed="풍산개"] { background: #e8f4f8; color: #0a558c; }
+.breed-badge[data-breed="삽살개"] { background: #f0e6ff; color: #6f42c1; }
+.breed-badge[data-breed="동경이"] { background: #d1f7e0; color: #1b6b3a; }
+.breed-badge[data-breed="제주개"] { background: #ffe0b2; color: #bf5000; }
+.breed-badge[data-breed="기타"]   { background: #f0f0f0; color: #555; }
+.breed-badge:not([data-breed])    { background: #f0f0f0; color: #555; }
+
+/* Card breed badge */
+.card-breed {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 6;
+  pointer-events: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,.15);
+}
+
+/* Lightbox breed badge */
+.lightbox-breed {
+  align-self: flex-start;
+  margin-bottom: 4px;
+}
 
 /* ── Loading ──────────────────────────────────────────────── */
 .loading-screen {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - var(--header-h));
+  height: calc(100vh - var(--header-h) - var(--breed-nav-h));
 }
 .spinner, .btn-spinner {
   border-radius: 50%;
@@ -118,7 +213,7 @@ body {
 .spinner {
   width: 40px; height: 40px;
   border: 3px solid #ddd;
-  border-top-color: var(--red);
+  border-top-color: var(--primary);
 }
 .btn-spinner {
   width: 18px; height: 18px;
@@ -215,9 +310,9 @@ body {
   flex-shrink: 0;
   transition: color var(--transition), transform var(--transition);
 }
-.btn-like:hover { color: var(--red); transform: scale(1.1); }
-.btn-like.liked { color: var(--red); }
-.btn-like.liked svg { fill: var(--red); }
+.btn-like:hover { color: var(--primary); transform: scale(1.1); }
+.btn-like.liked { color: var(--primary); }
+.btn-like.liked svg { fill: var(--primary); }
 .btn-like svg { transition: fill var(--transition); }
 
 /* ── Modal ────────────────────────────────────────────────── */
@@ -277,7 +372,7 @@ body {
   transition: border-color var(--transition), background var(--transition);
 }
 .drop-zone:hover,
-.drop-zone.drag-over { border-color: var(--red); background: #fff5f5; }
+.drop-zone.drag-over { border-color: var(--primary); background: #fff5f5; }
 .drop-placeholder {
   text-align: center;
   padding: 32px 24px;
@@ -288,7 +383,7 @@ body {
 .drop-placeholder p { font-size: .9rem; margin-bottom: 4px; }
 .drop-placeholder small { font-size: .75rem; }
 .browse-link {
-  color: var(--red);
+  color: var(--primary);
   text-decoration: underline;
   cursor: pointer;
   pointer-events: all;
@@ -314,10 +409,11 @@ body {
 .modal-fields { display: flex; flex-direction: column; gap: 14px; }
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field label { font-size: .83rem; font-weight: 600; }
-.req { color: var(--red); }
+.req { color: var(--primary); }
 .opt { color: var(--text-muted); font-weight: 400; }
 .field input,
-.field textarea {
+.field textarea,
+.field select {
   border: 1.5px solid var(--border);
   border-radius: 10px;
   padding: 10px 14px;
@@ -326,10 +422,20 @@ body {
   color: var(--text);
   outline: none;
   resize: none;
+  background: #fff;
   transition: border-color var(--transition);
 }
+.field select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23767676' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
 .field input:focus,
-.field textarea:focus { border-color: var(--text); }
+.field textarea:focus,
+.field select:focus { border-color: var(--text); }
 
 .btn-submit {
   display: flex;
@@ -337,7 +443,7 @@ body {
   justify-content: center;
   gap: 8px;
   width: 100%;
-  background: var(--red);
+  background: var(--primary);
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -349,7 +455,7 @@ body {
   margin-top: 20px;
   transition: background var(--transition), opacity var(--transition);
 }
-.btn-submit:hover { background: var(--red-hover); }
+.btn-submit:hover { background: var(--primary-hover); }
 .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
 
 /* ── Lightbox ─────────────────────────────────────────────── */
@@ -458,4 +564,6 @@ body {
   .lightbox-body { flex-direction: column; }
   .lightbox-info { width: 100%; border-left: none; border-top: 1px solid var(--border); }
   .modal { padding: 24px 18px; border-radius: 20px; }
+  .breed-nav { height: auto; }
+  .breed-nav-inner { padding: 8px 12px; height: auto; }
 }

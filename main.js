@@ -1,119 +1,100 @@
 // ── Sample Photos ──────────────────────────────────────────────────────────
 const SAMPLE_PHOTOS = [
   {
-    id: 's1',
+    id: 's1', breed: '진돗개',
     url: 'https://images.unsplash.com/photo-1583512654167-b60a09b7e2f1?w=600&auto=format&fit=crop',
     title: '진도 섬의 진돗개',
-    desc: '전남 진도에서 만난 순수 진돗개. 눈빛이 정말 맑아요.',
-    author: '진도사랑',
-    likes: 128,
-    createdAt: Date.now() - 864e5 * 7,
-    sample: true
+    desc: '전남 진도에서 만난 순수 혈통 진돗개. 맑은 눈빛과 당당한 자태가 인상적이에요.',
+    author: '진도사랑', likes: 128,
+    createdAt: Date.now() - 864e5 * 7, sample: true
   },
   {
-    id: 's2',
+    id: 's2', breed: '풍산개',
     url: 'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=600&auto=format&fit=crop',
-    title: '하얀 진돗개',
-    desc: '백구라고 불리는 하얀 진돗개. 정말 우아해요.',
-    author: 'PureJindo',
-    likes: 95,
-    createdAt: Date.now() - 864e5 * 5,
-    sample: true
+    title: '늠름한 풍산개',
+    desc: '북방의 사냥개 풍산개. 하얀 털과 용맹한 눈빛이 인상적인 북한 천연기념물.',
+    author: 'PungsanLover', likes: 95,
+    createdAt: Date.now() - 864e5 * 5, sample: true
   },
   {
-    id: 's3',
+    id: 's3', breed: '진돗개',
     url: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600&auto=format&fit=crop',
     title: '산책하는 진돗개',
-    desc: '아침 산책길에서 만난 활기찬 진돗개.',
-    author: 'Morning Walk',
-    likes: 74,
-    createdAt: Date.now() - 864e5 * 4,
-    sample: true
+    desc: '아침 산책길에서 만난 활기찬 진돗개. 충성스럽고 영리한 한국의 대표 토종견.',
+    author: 'Morning Walk', likes: 74,
+    createdAt: Date.now() - 864e5 * 4, sample: true
   },
   {
-    id: 's4',
+    id: 's4', breed: '진돗개',
     url: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&auto=format&fit=crop',
-    title: '들판의 진돗개',
-    desc: '넓은 들판을 달리는 자유로운 진돗개.',
-    author: '들판지기',
-    likes: 203,
-    createdAt: Date.now() - 864e5 * 3,
-    sample: true
+    title: '들판의 황구',
+    desc: '넓은 들판을 자유롭게 달리는 황구. 진돗개의 전형적인 황금빛 털이 눈부셔요.',
+    author: '들판지기', likes: 203,
+    createdAt: Date.now() - 864e5 * 3, sample: true
   },
   {
-    id: 's5',
+    id: 's5', breed: '삽살개',
     url: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=600&auto=format&fit=crop',
-    title: '귀여운 황구',
-    desc: '진돗개의 대표 색상인 황구. 눈빛이 영리해요.',
-    author: 'JindoFan',
-    likes: 156,
-    createdAt: Date.now() - 864e5 * 2,
-    sample: true
+    title: '복스러운 삽살개',
+    desc: '귀신을 쫓는다는 삽살개. 풍성한 털과 순한 눈빛이 매력적인 한국 천연기념물.',
+    author: 'SapsaliLove', likes: 156,
+    createdAt: Date.now() - 864e5 * 2, sample: true
   },
   {
-    id: 's6',
+    id: 's6', breed: '동경이',
     url: 'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&auto=format&fit=crop',
-    title: '해변의 진돗개',
-    desc: '바다를 배경으로 시원하게 뛰어노는 진돗개.',
-    author: 'SeaJindo',
-    likes: 89,
-    createdAt: Date.now() - 864e5 * 1,
-    sample: true
+    title: '해변의 동경이',
+    desc: '꼬리 없는 경주 동경이. 신라 천년의 역사를 품은 특별한 한국 토종견이에요.',
+    author: 'DonggyeongiPark', likes: 89,
+    createdAt: Date.now() - 864e5 * 1, sample: true
   },
   {
-    id: 's7',
+    id: 's7', breed: '제주개',
     url: 'https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?w=600&auto=format&fit=crop',
-    title: '낮잠 자는 진돗개',
-    desc: '햇살 좋은 오후, 편안히 낮잠 중인 진돗개.',
-    author: 'NapTime',
-    likes: 312,
-    createdAt: Date.now() - 864e5 * 0.5,
-    sample: true
+    title: '한라산 제주개',
+    desc: '한라산 기슭에서 쉬고 있는 제주 토종개. 제주에서만 만날 수 있는 귀한 견종.',
+    author: 'JejuDogLover', likes: 312,
+    createdAt: Date.now() - 864e5 * 0.5, sample: true
   },
   {
-    id: 's8',
+    id: 's8', breed: '진돗개',
     url: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop',
-    title: '강아지 때의 진돗개',
-    desc: '어릴 때부터 위풍당당한 진돗개 강아지.',
-    author: 'BabyJindo',
-    likes: 441,
-    createdAt: Date.now() - 864e5 * 0.2,
-    sample: true
+    title: '진돗개 강아지',
+    desc: '어릴 때부터 위풍당당한 진돗개 강아지. 귀여움과 당당함을 동시에 갖췄어요.',
+    author: 'BabyJindo', likes: 441,
+    createdAt: Date.now() - 864e5 * 0.2, sample: true
   },
   {
-    id: 's9',
+    id: 's9', breed: '삽살개',
     url: 'https://images.unsplash.com/photo-1588269845464-8993565cac3a?w=600&auto=format&fit=crop',
-    title: '숲속의 진돗개',
-    desc: '초록 숲 속에서 탐험하는 늠름한 진돗개.',
-    author: 'Forest_Jindo',
-    likes: 67,
-    createdAt: Date.now() - 864e5 * 0.1,
-    sample: true
+    title: '숲속의 삽살개',
+    desc: '초록 숲 속을 탐험하는 삽살개. 긴 털이 바람에 나부끼는 자유로운 모습이에요.',
+    author: 'Forest_Sapsali', likes: 67,
+    createdAt: Date.now() - 864e5 * 0.1, sample: true
   },
   {
-    id: 's10',
+    id: 's10', breed: '풍산개',
     url: 'https://images.unsplash.com/photo-1529429225476-8a6d1b06d6d3?w=600&auto=format&fit=crop',
-    title: '겨울 진돗개',
-    desc: '눈 위에서도 활발한 진돗개의 강인한 모습.',
-    author: 'WinterDog',
-    likes: 188,
-    createdAt: Date.now() - 864e5 * 0.05,
-    sample: true
+    title: '눈 속의 풍산개',
+    desc: '눈밭이 고향인 듯 자유로운 풍산개. 혹한에도 강한 강인한 북방 토종견.',
+    author: 'WinterPungsan', likes: 188,
+    createdAt: Date.now() - 864e5 * 0.05, sample: true
   }
 ];
 
 // ── Storage Keys ───────────────────────────────────────────────────────────
-const KEY_PHOTOS = 'jb_photos';
-const KEY_LIKED  = 'jb_liked';
-const KEY_LIKES  = 'jb_likes';
+const KEY_PHOTOS = 'kdb_photos';
+const KEY_LIKED  = 'kdb_liked';
+const KEY_LIKES  = 'kdb_likes';
 
 // ── State ──────────────────────────────────────────────────────────────────
 let allPhotos      = [];
 let currentPhotoId = null;
 let selectedFile   = null;
 let toastTimer     = null;
+let currentBreed   = '';
 
-const likedSet = new Set(JSON.parse(localStorage.getItem(KEY_LIKED) || '[]'));
+const likedSet   = new Set(JSON.parse(localStorage.getItem(KEY_LIKED) || '[]'));
 const likeCounts = JSON.parse(localStorage.getItem(KEY_LIKES) || '{}');
 
 function saveLiked() {
@@ -127,36 +108,39 @@ function getLikeCount(photo) {
 }
 
 // ── DOM refs ───────────────────────────────────────────────────────────────
-const grid          = document.getElementById('photo-grid');
-const loadingEl     = document.getElementById('loading');
-const emptyEl       = document.getElementById('empty-state');
-const modalOverlay  = document.getElementById('modal-overlay');
-const openUploadBtn = document.getElementById('open-upload');
-const modalCloseBtn = document.getElementById('modal-close');
-const dropZone      = document.getElementById('drop-zone');
-const fileInput     = document.getElementById('file-input');
+const grid           = document.getElementById('photo-grid');
+const loadingEl      = document.getElementById('loading');
+const emptyEl        = document.getElementById('empty-state');
+const modalOverlay   = document.getElementById('modal-overlay');
+const openUploadBtn  = document.getElementById('open-upload');
+const modalCloseBtn  = document.getElementById('modal-close');
+const dropZone       = document.getElementById('drop-zone');
+const fileInput      = document.getElementById('file-input');
 const dropPlaceholder = document.getElementById('drop-placeholder');
-const dropPreview   = document.getElementById('drop-preview');
-const previewImg    = document.getElementById('preview-img');
-const changeImgBtn  = document.getElementById('change-img');
-const browseLink    = document.getElementById('browse-link');
-const titleInput    = document.getElementById('photo-title');
-const descInput     = document.getElementById('photo-desc');
-const authorInput   = document.getElementById('author-name');
-const submitBtn     = document.getElementById('submit-btn');
-const submitLabel   = document.getElementById('submit-label');
-const btnSpinner    = document.getElementById('btn-spinner');
-const searchInput   = document.getElementById('search-input');
-const lightbox      = document.getElementById('lightbox');
-const lightboxBg    = document.getElementById('lightbox-bg');
-const lightboxClose = document.getElementById('lightbox-close');
-const lightboxImg   = document.getElementById('lightbox-img');
-const lightboxTitle = document.getElementById('lightbox-title');
-const lightboxDesc  = document.getElementById('lightbox-desc');
-const lightboxAuthor= document.getElementById('lightbox-author');
-const lightboxLike  = document.getElementById('lightbox-like');
+const dropPreview    = document.getElementById('drop-preview');
+const previewImg     = document.getElementById('preview-img');
+const changeImgBtn   = document.getElementById('change-img');
+const browseLink     = document.getElementById('browse-link');
+const breedInput     = document.getElementById('photo-breed');
+const titleInput     = document.getElementById('photo-title');
+const descInput      = document.getElementById('photo-desc');
+const authorInput    = document.getElementById('author-name');
+const submitBtn      = document.getElementById('submit-btn');
+const submitLabel    = document.getElementById('submit-label');
+const btnSpinner     = document.getElementById('btn-spinner');
+const searchInput    = document.getElementById('search-input');
+const breedNav       = document.getElementById('breed-nav');
+const lightbox       = document.getElementById('lightbox');
+const lightboxBg     = document.getElementById('lightbox-bg');
+const lightboxClose  = document.getElementById('lightbox-close');
+const lightboxImg    = document.getElementById('lightbox-img');
+const lightboxBreed  = document.getElementById('lightbox-breed');
+const lightboxTitle  = document.getElementById('lightbox-title');
+const lightboxDesc   = document.getElementById('lightbox-desc');
+const lightboxAuthor = document.getElementById('lightbox-author');
+const lightboxLike   = document.getElementById('lightbox-like');
 const lightboxLikeCount = document.getElementById('lightbox-like-count');
-const toastEl       = document.getElementById('toast');
+const toastEl        = document.getElementById('toast');
 
 // ── Toast ──────────────────────────────────────────────────────────────────
 function showToast(msg, duration = 2600) {
@@ -182,6 +166,7 @@ function resetForm() {
   previewImg.src = '';
   dropPreview.classList.add('hidden');
   dropPlaceholder.classList.remove('hidden');
+  breedInput.value = '';
   titleInput.value = '';
   descInput.value = '';
   authorInput.value = '';
@@ -191,6 +176,16 @@ function resetForm() {
 openUploadBtn.addEventListener('click', openModal);
 modalCloseBtn.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+
+// ── Breed Filter ───────────────────────────────────────────────────────────
+breedNav.querySelectorAll('.breed-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    breedNav.querySelectorAll('.breed-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    currentBreed = chip.dataset.breed;
+    renderPhotos(allPhotos);
+  });
+});
 
 // ── File Handling ──────────────────────────────────────────────────────────
 function handleFile(file) {
@@ -252,9 +247,10 @@ function setSubmitLoading(on) {
 }
 
 submitBtn.addEventListener('click', async () => {
-  if (!selectedFile)            { showToast('사진을 선택해주세요.');           return; }
-  if (!titleInput.value.trim()) { showToast('제목을 입력해주세요.');            return; }
-  if (!authorInput.value.trim()){ showToast('이름 또는 닉네임을 입력해주세요.'); return; }
+  if (!selectedFile)              { showToast('사진을 선택해주세요.');           return; }
+  if (!breedInput.value)          { showToast('품종을 선택해주세요.');            return; }
+  if (!titleInput.value.trim())   { showToast('제목을 입력해주세요.');            return; }
+  if (!authorInput.value.trim())  { showToast('이름 또는 닉네임을 입력해주세요.'); return; }
 
   setSubmitLoading(true);
   try {
@@ -262,6 +258,7 @@ submitBtn.addEventListener('click', async () => {
 
     const newPhoto = {
       id:        'u_' + Date.now(),
+      breed:     breedInput.value,
       url:       dataUrl,
       title:     titleInput.value.trim(),
       desc:      descInput.value.trim(),
@@ -276,7 +273,7 @@ submitBtn.addEventListener('click', async () => {
 
     closeModal();
     loadAndRender();
-    showToast('🐕 사진이 업로드됐어요!');
+    showToast('🐾 사진이 업로드됐어요!');
   } catch (err) {
     console.error(err);
     showToast('업로드 중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -296,7 +293,6 @@ function toggleLike(id) {
   }
   saveLiked();
 
-  // Update all buttons with this photo id
   document.querySelectorAll(`.btn-like[data-id="${id}"]`).forEach(btn => {
     btn.classList.toggle('liked', !liked);
     const svg = btn.querySelector('svg');
@@ -316,12 +312,14 @@ function esc(str) {
 function createCard(photo) {
   const liked = likedSet.has(photo.id);
   const count = getLikeCount(photo);
+  const breed = photo.breed || '기타';
   const card  = document.createElement('div');
   card.className = 'photo-card';
   card.dataset.id = photo.id;
 
   card.innerHTML = `
     <img src="${esc(photo.url)}" alt="${esc(photo.title)}" loading="lazy">
+    <span class="breed-badge card-breed" data-breed="${esc(breed)}">${esc(breed)}</span>
     <div class="card-overlay">
       <div class="card-overlay-text">
         <h4>${esc(photo.title)}</h4>
@@ -353,13 +351,19 @@ function createCard(photo) {
 // ── Render ─────────────────────────────────────────────────────────────────
 function renderPhotos(photos) {
   const q = searchInput.value.trim().toLowerCase();
-  const list = q
-    ? photos.filter(p =>
-        p.title.toLowerCase().includes(q) ||
-        p.author.toLowerCase().includes(q) ||
-        (p.desc && p.desc.toLowerCase().includes(q))
-      )
-    : photos;
+  let list = photos;
+
+  if (currentBreed) {
+    list = list.filter(p => (p.breed || '기타') === currentBreed);
+  }
+  if (q) {
+    list = list.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.author.toLowerCase().includes(q) ||
+      (p.desc && p.desc.toLowerCase().includes(q)) ||
+      (p.breed && p.breed.toLowerCase().includes(q))
+    );
+  }
 
   grid.innerHTML = '';
   emptyEl.classList.toggle('hidden', list.length > 0);
@@ -377,6 +381,14 @@ function openLightbox(photo) {
   lightboxDesc.textContent = photo.desc || '';
   lightboxDesc.style.display = photo.desc ? '' : 'none';
   lightboxAuthor.textContent = `by ${photo.author}`;
+
+  if (photo.breed) {
+    lightboxBreed.textContent = photo.breed;
+    lightboxBreed.dataset.breed = photo.breed;
+    lightboxBreed.classList.remove('hidden');
+  } else {
+    lightboxBreed.classList.add('hidden');
+  }
 
   const count = getLikeCount(photo);
   lightboxLikeCount.textContent = count;
