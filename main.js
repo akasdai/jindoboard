@@ -372,6 +372,36 @@ function renderPhotos(photos) {
 
 searchInput.addEventListener('input', () => renderPhotos(allPhotos));
 
+// ── Disqus (per-photo) ─────────────────────────────────────────────────────
+let disqusLoaded = false;
+
+function resetDisqus(photoId) {
+  const identifier = `kdog-photo-${photoId}`;
+  const url = `https://akasdai.github.io/jindoboard/#photo-${photoId}`;
+
+  if (window.DISQUS) {
+    DISQUS.reset({
+      reload: true,
+      config: function () {
+        this.page.identifier = identifier;
+        this.page.url = url;
+      }
+    });
+  } else {
+    window.disqus_config = function () {
+      this.page.identifier = identifier;
+      this.page.url = url;
+    };
+    if (!disqusLoaded) {
+      disqusLoaded = true;
+      const s = document.createElement('script');
+      s.src = 'https://jindoboard.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      document.body.appendChild(s);
+    }
+  }
+}
+
 // ── Lightbox ───────────────────────────────────────────────────────────────
 function openLightbox(photo) {
   currentPhotoId = photo.id;
@@ -400,6 +430,8 @@ function openLightbox(photo) {
 
   lightbox.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+
+  resetDisqus(photo.id);
 }
 
 function closeLightbox() {

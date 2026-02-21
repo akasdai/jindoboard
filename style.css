@@ -480,7 +480,7 @@ body {
   border-radius: 20px;
   max-width: 1000px;
   width: 100%;
-  max-height: 90vh;
+  max-height: 92vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -492,7 +492,13 @@ body {
   z-index: 10;
   background: rgba(255,255,255,.9);
 }
-.lightbox-body { display: flex; flex: 1; overflow: hidden; min-height: 0; }
+.lightbox-body {
+  display: flex;
+  flex: 0 0 auto;
+  overflow: hidden;
+  min-height: 0;
+  max-height: 54vh;
+}
 .lightbox-img-wrap {
   flex: 1;
   background: #111;
@@ -504,7 +510,7 @@ body {
 }
 .lightbox-img-wrap img {
   max-width: 100%;
-  max-height: 88vh;
+  max-height: 52vh;
   object-fit: contain;
   display: block;
 }
@@ -530,6 +536,24 @@ body {
 }
 .lightbox-author { font-size: .83rem; color: var(--text-muted); font-weight: 500; }
 
+/* ── Lightbox Comments ───────────────────────────────────── */
+.lightbox-comments {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  border-top: 1px solid var(--border);
+  background: #fafafa;
+  padding: 20px 28px 28px;
+  min-height: 160px;
+}
+.lightbox-comments-label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 14px;
+}
+
 /* ── Toast ────────────────────────────────────────────────── */
 .toast {
   position: fixed;
@@ -550,24 +574,6 @@ body {
 @keyframes toast-in {
   from { opacity: 0; transform: translateX(-50%) translateY(8px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-/* ── Comments Section ────────────────────────────────────── */
-.comments-section {
-  background: #fff;
-  border-top: 1px solid var(--border);
-  margin-top: 16px;
-}
-.comments-inner {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 48px 24px 64px;
-}
-.comments-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 28px;
-  color: var(--text);
 }
 
 /* ── Partnership Button ──────────────────────────────────── */
@@ -626,8 +632,10 @@ body {
   .btn-upload span { display: none; }
   .btn-upload { padding: 0 14px; }
   .masonry-grid { columns: 160px; column-gap: 10px; padding: 12px 10px 40px; }
-  .lightbox-body { flex-direction: column; }
+  .lightbox-body { flex-direction: column; max-height: none; }
+  .lightbox-img-wrap img { max-height: 40vh; }
   .lightbox-info { width: 100%; border-left: none; border-top: 1px solid var(--border); }
+  .lightbox-comments { padding: 16px 16px 24px; }
   .modal { padding: 24px 18px; border-radius: 20px; }
   .breed-nav { height: auto; }
   .breed-nav-inner { padding: 8px 12px; height: auto; }
