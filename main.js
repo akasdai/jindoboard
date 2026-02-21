@@ -425,6 +425,83 @@ function loadAndRender() {
   renderPhotos(allPhotos);
 }
 
+// ── Partnership Modal ──────────────────────────────────────────────────────
+const FORMSPREE_URL = 'https://formspree.io/f/mgolnarw';
+
+const partnerOverlay     = document.getElementById('partner-overlay');
+const openPartnerBtn     = document.getElementById('open-partner');
+const partnerCloseBtn    = document.getElementById('partner-close');
+const partnerFormView    = document.getElementById('partner-form-view');
+const partnerSuccessView = document.getElementById('partner-success-view');
+const partnerDoneBtn     = document.getElementById('partner-done');
+const partnerSubmitBtn   = document.getElementById('partner-submit');
+const partnerCompany     = document.getElementById('partner-company');
+const partnerName        = document.getElementById('partner-name');
+const partnerEmail       = document.getElementById('partner-email');
+const partnerType        = document.getElementById('partner-type');
+const partnerMessage     = document.getElementById('partner-message');
+
+function openPartnerModal() {
+  partnerOverlay.classList.remove('hidden');
+  partnerFormView.classList.remove('hidden');
+  partnerSuccessView.classList.add('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closePartnerModal() {
+  partnerOverlay.classList.add('hidden');
+  document.body.style.overflow = '';
+  partnerCompany.value = '';
+  partnerName.value = '';
+  partnerEmail.value = '';
+  partnerType.value = '';
+  partnerMessage.value = '';
+  partnerSubmitBtn.disabled = false;
+  partnerSubmitBtn.textContent = '문의 보내기';
+}
+
+openPartnerBtn.addEventListener('click', openPartnerModal);
+partnerCloseBtn.addEventListener('click', closePartnerModal);
+partnerOverlay.addEventListener('click', (e) => { if (e.target === partnerOverlay) closePartnerModal(); });
+partnerDoneBtn.addEventListener('click', closePartnerModal);
+
+partnerSubmitBtn.addEventListener('click', async () => {
+  const company = partnerCompany.value.trim();
+  const name    = partnerName.value.trim();
+  const email   = partnerEmail.value.trim();
+  const type    = partnerType.value;
+  const message = partnerMessage.value.trim();
+
+  if (!company) { showToast('회사 / 브랜드명을 입력해주세요.'); return; }
+  if (!name)    { showToast('담당자 이름을 입력해주세요.');     return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast('올바른 이메일 주소를 입력해주세요.'); return;
+  }
+  if (!type)    { showToast('문의 유형을 선택해주세요.');       return; }
+  if (!message) { showToast('문의 내용을 입력해주세요.');       return; }
+
+  partnerSubmitBtn.disabled = true;
+  partnerSubmitBtn.textContent = '전송 중...';
+
+  try {
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ company, name, email, type, message })
+    });
+
+    if (res.ok) {
+      partnerFormView.classList.add('hidden');
+      partnerSuccessView.classList.remove('hidden');
+    } else {
+      throw new Error('server error');
+    }
+  } catch {
+    showToast('전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    partnerSubmitBtn.disabled = false;
+    partnerSubmitBtn.textContent = '문의 보내기';
+  }
+});
+
 // ── Init ───────────────────────────────────────────────────────────────────
 loadingEl.classList.add('hidden');
 loadAndRender();

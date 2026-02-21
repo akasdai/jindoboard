@@ -29,6 +29,7 @@
         </svg>
         <span>사진 올리기</span>
       </button>
+      <button class="btn-partner" id="open-partner">제휴 문의</button>
     </div>
   </header>
 
@@ -143,6 +144,63 @@
               <span class="like-count" id="lightbox-like-count">0</span>
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Partnership Modal -->
+  <div class="modal-overlay hidden" id="partner-overlay">
+    <div class="modal">
+      <button class="btn-icon modal-close" id="partner-close" aria-label="닫기">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <!-- Form View -->
+      <div id="partner-form-view">
+        <h2 class="modal-title">🤝 제휴 문의</h2>
+        <p class="partner-desc">광고, 콘텐츠 협업, 이벤트 등 다양한 제휴를 환영합니다.<br>문의 내용을 남겨주시면 빠르게 연락드릴게요.</p>
+        <div class="modal-fields">
+          <div class="field">
+            <label for="partner-company">회사 / 브랜드명 <span class="req">*</span></label>
+            <input type="text" id="partner-company" placeholder="예: 멍멍 펫푸드" maxlength="60">
+          </div>
+          <div class="field">
+            <label for="partner-name">담당자 이름 <span class="req">*</span></label>
+            <input type="text" id="partner-name" placeholder="예: 김담당" maxlength="30">
+          </div>
+          <div class="field">
+            <label for="partner-email">이메일 <span class="req">*</span></label>
+            <input type="email" id="partner-email" placeholder="예: contact@example.com" maxlength="100">
+          </div>
+          <div class="field">
+            <label for="partner-type">문의 유형 <span class="req">*</span></label>
+            <select id="partner-type">
+              <option value="">유형을 선택해주세요</option>
+              <option value="광고 / 협찬">광고 / 협찬</option>
+              <option value="콘텐츠 제휴">콘텐츠 제휴</option>
+              <option value="이벤트 / 캠페인">이벤트 / 캠페인</option>
+              <option value="커뮤니티 파트너십">커뮤니티 파트너십</option>
+              <option value="기타">기타</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="partner-message">문의 내용 <span class="req">*</span></label>
+            <textarea id="partner-message" placeholder="제안하실 내용을 자유롭게 작성해주세요." rows="4" maxlength="500"></textarea>
+          </div>
+        </div>
+        <button class="btn-submit" id="partner-submit">문의 보내기</button>
+      </div>
+
+      <!-- Success View -->
+      <div id="partner-success-view" class="hidden">
+        <div class="partner-success">
+          <div class="partner-success-icon">✅</div>
+          <h2>문의가 접수됐어요!</h2>
+          <p>빠른 시일 내에 입력하신 이메일로 연락드리겠습니다.<br>K-Dog Board에 관심 가져주셔서 감사합니다 🐾</p>
+          <button class="btn-submit" id="partner-done">확인</button>
         </div>
       </div>
     </div>

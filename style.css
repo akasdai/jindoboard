@@ -552,6 +552,53 @@ body {
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
+/* ── Partnership Button ──────────────────────────────────── */
+.btn-partner {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-btn);
+  padding: 0 16px;
+  height: 44px;
+  font-size: .875rem;
+  font-weight: 600;
+  font-family: var(--font);
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: border-color var(--transition), color var(--transition);
+}
+.btn-partner:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Partnership Form ────────────────────────────────────── */
+.partner-desc {
+  font-size: .88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.partner-success {
+  text-align: center;
+  padding: 20px 0 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.partner-success-icon { font-size: 3.5rem; }
+.partner-success h2 { font-size: 1.2rem; font-weight: 700; }
+.partner-success p {
+  font-size: .88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+.partner-success .btn-submit { margin-top: 8px; }
+
 /* ── Utils ────────────────────────────────────────────────── */
 .hidden { display: none !important; }
 
