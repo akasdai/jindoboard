@@ -1,14 +1,6 @@
 // ── Sample Photos ──────────────────────────────────────────────────────────
 const SAMPLE_PHOTOS = [
   {
-    id: 's1',
-    url: 'https://images.unsplash.com/photo-1583512654167-b60a09b7e2f1?w=600&auto=format&fit=crop',
-    title: 'Jindo Dog on Jindo Island',
-    desc: 'A pure-bred Jindo dog on Jindo Island, South Korea. Proud stance and alert eyes.',
-    author: 'JindoLover', likes: 128,
-    createdAt: Date.now() - 864e5 * 7, sample: true
-  },
-  {
     id: 's2',
     url: 'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=600&auto=format&fit=crop',
     title: 'Majestic Pungsan',
@@ -72,14 +64,6 @@ const SAMPLE_PHOTOS = [
     author: 'ForestSapsali', likes: 67,
     createdAt: Date.now() - 864e5 * 0.1, sample: true
   },
-  {
-    id: 's10',
-    url: 'https://images.unsplash.com/photo-1529429225476-8a6d1b06d6d3?w=600&auto=format&fit=crop',
-    title: 'Pungsan in the Snow',
-    desc: 'A Pungsan dog in the snow — right where it belongs. Built for the northern cold.',
-    author: 'WinterPungsan', likes: 188,
-    createdAt: Date.now() - 864e5 * 0.05, sample: true
-  }
 ];
 
 // ── Storage Keys ───────────────────────────────────────────────────────────
