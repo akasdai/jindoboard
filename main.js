@@ -1,82 +1,82 @@
 // ── Sample Photos ──────────────────────────────────────────────────────────
 const SAMPLE_PHOTOS = [
   {
-    id: 's1', breed: '진돗개',
+    id: 's1',
     url: 'https://images.unsplash.com/photo-1583512654167-b60a09b7e2f1?w=600&auto=format&fit=crop',
-    title: '진도 섬의 진돗개',
-    desc: '전남 진도에서 만난 순수 혈통 진돗개. 맑은 눈빛과 당당한 자태가 인상적이에요.',
-    author: '진도사랑', likes: 128,
+    title: 'Jindo Dog on Jindo Island',
+    desc: 'A pure-bred Jindo dog on Jindo Island, South Korea. Proud stance and alert eyes.',
+    author: 'JindoLover', likes: 128,
     createdAt: Date.now() - 864e5 * 7, sample: true
   },
   {
-    id: 's2', breed: '풍산개',
+    id: 's2',
     url: 'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=600&auto=format&fit=crop',
-    title: '늠름한 풍산개',
-    desc: '북방의 사냥개 풍산개. 하얀 털과 용맹한 눈빛이 인상적인 북한 천연기념물.',
+    title: 'Majestic Pungsan',
+    desc: 'The Pungsan, a powerful hunting dog from North Korea. Bold, fearless, and beautiful.',
     author: 'PungsanLover', likes: 95,
     createdAt: Date.now() - 864e5 * 5, sample: true
   },
   {
-    id: 's3', breed: '진돗개',
+    id: 's3',
     url: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600&auto=format&fit=crop',
-    title: '산책하는 진돗개',
-    desc: '아침 산책길에서 만난 활기찬 진돗개. 충성스럽고 영리한 한국의 대표 토종견.',
-    author: 'Morning Walk', likes: 74,
+    title: 'Morning Walk',
+    desc: 'A lively Jindo enjoying a morning walk. Loyal and intelligent — a true Korean native.',
+    author: 'MorningWalker', likes: 74,
     createdAt: Date.now() - 864e5 * 4, sample: true
   },
   {
-    id: 's4', breed: '진돗개',
+    id: 's4',
     url: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&auto=format&fit=crop',
-    title: '들판의 황구',
-    desc: '넓은 들판을 자유롭게 달리는 황구. 진돗개의 전형적인 황금빛 털이 눈부셔요.',
-    author: '들판지기', likes: 203,
+    title: 'Golden Hwanggu',
+    desc: 'A golden Jindo running free in open fields. The iconic amber coat shines in the sun.',
+    author: 'FieldKeeper', likes: 203,
     createdAt: Date.now() - 864e5 * 3, sample: true
   },
   {
-    id: 's5', breed: '삽살개',
+    id: 's5',
     url: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=600&auto=format&fit=crop',
-    title: '복스러운 삽살개',
-    desc: '귀신을 쫓는다는 삽살개. 풍성한 털과 순한 눈빛이 매력적인 한국 천연기념물.',
+    title: 'Fluffy Sapsali',
+    desc: 'The Sapsali, a Korean natural monument said to ward off evil spirits. Fluffy and gentle.',
     author: 'SapsaliLove', likes: 156,
     createdAt: Date.now() - 864e5 * 2, sample: true
   },
   {
-    id: 's6', breed: '동경이',
+    id: 's6',
     url: 'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&auto=format&fit=crop',
-    title: '해변의 동경이',
-    desc: '꼬리 없는 경주 동경이. 신라 천년의 역사를 품은 특별한 한국 토종견이에요.',
+    title: 'Donggyeongi at the Beach',
+    desc: 'The tailless Gyeongju Donggyeongi — a rare Korean native breed with a thousand-year history.',
     author: 'DonggyeongiPark', likes: 89,
     createdAt: Date.now() - 864e5 * 1, sample: true
   },
   {
-    id: 's7', breed: '제주개',
+    id: 's7',
     url: 'https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?w=600&auto=format&fit=crop',
-    title: '한라산 제주개',
-    desc: '한라산 기슭에서 쉬고 있는 제주 토종개. 제주에서만 만날 수 있는 귀한 견종.',
+    title: 'Jeju Dog at Hallasan',
+    desc: 'A Jeju native dog resting at the foot of Mt. Hallasan. Found only on Jeju Island.',
     author: 'JejuDogLover', likes: 312,
     createdAt: Date.now() - 864e5 * 0.5, sample: true
   },
   {
-    id: 's8', breed: '진돗개',
+    id: 's8',
     url: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop',
-    title: '진돗개 강아지',
-    desc: '어릴 때부터 위풍당당한 진돗개 강아지. 귀여움과 당당함을 동시에 갖췄어요.',
+    title: 'Jindo Puppy',
+    desc: 'A bold Jindo puppy — adorable and spirited from day one.',
     author: 'BabyJindo', likes: 441,
     createdAt: Date.now() - 864e5 * 0.2, sample: true
   },
   {
-    id: 's9', breed: '삽살개',
+    id: 's9',
     url: 'https://images.unsplash.com/photo-1588269845464-8993565cac3a?w=600&auto=format&fit=crop',
-    title: '숲속의 삽살개',
-    desc: '초록 숲 속을 탐험하는 삽살개. 긴 털이 바람에 나부끼는 자유로운 모습이에요.',
-    author: 'Forest_Sapsali', likes: 67,
+    title: 'Sapsali in the Forest',
+    desc: 'A Sapsali exploring the green forest, long fur flowing freely in the breeze.',
+    author: 'ForestSapsali', likes: 67,
     createdAt: Date.now() - 864e5 * 0.1, sample: true
   },
   {
-    id: 's10', breed: '풍산개',
+    id: 's10',
     url: 'https://images.unsplash.com/photo-1529429225476-8a6d1b06d6d3?w=600&auto=format&fit=crop',
-    title: '눈 속의 풍산개',
-    desc: '눈밭이 고향인 듯 자유로운 풍산개. 혹한에도 강한 강인한 북방 토종견.',
+    title: 'Pungsan in the Snow',
+    desc: 'A Pungsan dog in the snow — right where it belongs. Built for the northern cold.',
     author: 'WinterPungsan', likes: 188,
     createdAt: Date.now() - 864e5 * 0.05, sample: true
   }
@@ -175,11 +175,11 @@ modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) c
 // ── File Handling ──────────────────────────────────────────────────────────
 function handleFile(file) {
   if (!file || !file.type.startsWith('image/')) {
-    showToast('이미지 파일만 업로드할 수 있습니다.');
+    showToast('Please select an image file.');
     return;
   }
   if (file.size > 10 * 1024 * 1024) {
-    showToast('파일 크기는 10MB 이하여야 합니다.');
+    showToast('File size must be 10MB or less.');
     return;
   }
   selectedFile = file;
@@ -232,9 +232,9 @@ function setSubmitLoading(on) {
 }
 
 submitBtn.addEventListener('click', async () => {
-  if (!selectedFile)              { showToast('사진을 선택해주세요.');           return; }
-  if (!titleInput.value.trim())   { showToast('제목을 입력해주세요.');            return; }
-  if (!authorInput.value.trim())  { showToast('이름 또는 닉네임을 입력해주세요.'); return; }
+  if (!selectedFile)              { showToast('Please select a photo.');         return; }
+  if (!titleInput.value.trim())   { showToast('Please enter a title.');          return; }
+  if (!authorInput.value.trim())  { showToast('Please enter your name or nickname.'); return; }
 
   setSubmitLoading(true);
   try {
@@ -256,10 +256,10 @@ submitBtn.addEventListener('click', async () => {
 
     closeModal();
     loadAndRender();
-    showToast('🐾 사진이 업로드됐어요!');
+    showToast('🐾 Photo uploaded!');
   } catch (err) {
     console.error(err);
-    showToast('업로드 중 오류가 발생했습니다. 다시 시도해주세요.');
+    showToast('Upload failed. Please try again.');
     setSubmitLoading(false);
   }
 });
@@ -302,7 +302,7 @@ function createCard(photo) {
   card.innerHTML = `
     <img src="${esc(photo.url)}" alt="${esc(photo.title)}" loading="lazy">
     <div class="card-overlay">
-      <button class="btn-like card-like-overlay ${liked ? 'liked' : ''}" data-id="${esc(photo.id)}" aria-label="좋아요">
+      <button class="btn-like card-like-overlay ${liked ? 'liked' : ''}" data-id="${esc(photo.id)}" aria-label="Like">
         <svg width="16" height="16" viewBox="0 0 24 24"
              fill="${liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -336,8 +336,7 @@ function renderPhotos(photos) {
     list = list.filter(p =>
       p.title.toLowerCase().includes(q) ||
       p.author.toLowerCase().includes(q) ||
-      (p.desc && p.desc.toLowerCase().includes(q)) ||
-      (p.breed && p.breed.toLowerCase().includes(q))
+      (p.desc && p.desc.toLowerCase().includes(q))
     );
   }
 
@@ -424,7 +423,7 @@ function closePartnerModal() {
   partnerType.value = '';
   partnerMessage.value = '';
   partnerSubmitBtn.disabled = false;
-  partnerSubmitBtn.textContent = '문의 보내기';
+  partnerSubmitBtn.textContent = 'Send Inquiry';
 }
 
 openPartnerBtn.addEventListener('click', openPartnerModal);
@@ -439,16 +438,16 @@ partnerSubmitBtn.addEventListener('click', async () => {
   const type    = partnerType.value;
   const message = partnerMessage.value.trim();
 
-  if (!company) { showToast('회사 / 브랜드명을 입력해주세요.'); return; }
-  if (!name)    { showToast('담당자 이름을 입력해주세요.');     return; }
+  if (!company) { showToast('Please enter your company or brand name.'); return; }
+  if (!name)    { showToast('Please enter your contact name.');          return; }
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showToast('올바른 이메일 주소를 입력해주세요.'); return;
+    showToast('Please enter a valid email address.'); return;
   }
-  if (!type)    { showToast('문의 유형을 선택해주세요.');       return; }
-  if (!message) { showToast('문의 내용을 입력해주세요.');       return; }
+  if (!type)    { showToast('Please select an inquiry type.');           return; }
+  if (!message) { showToast('Please enter your message.');               return; }
 
   partnerSubmitBtn.disabled = true;
-  partnerSubmitBtn.textContent = '전송 중...';
+  partnerSubmitBtn.textContent = 'Sending...';
 
   try {
     const res = await fetch(FORMSPREE_URL, {
@@ -464,9 +463,9 @@ partnerSubmitBtn.addEventListener('click', async () => {
       throw new Error('server error');
     }
   } catch {
-    showToast('전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    showToast('Failed to send. Please try again later.');
     partnerSubmitBtn.disabled = false;
-    partnerSubmitBtn.textContent = '문의 보내기';
+    partnerSubmitBtn.textContent = 'Send Inquiry';
   }
 });
 

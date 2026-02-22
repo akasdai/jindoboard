@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>K-Dog Board — 한국 토종견 사진 공유</title>
-  <meta name="description" content="진돗개, 풍산개, 삽살개, 동경이, 제주개 등 한국 토종견 사진을 공유하고 발견하는 K-Dog 커뮤니티">
+  <title>Show Your Jindo — Share Your Jindo Photos</title>
+  <meta name="description" content="A community for Jindo dog lovers around the world. Share and discover photos of beautiful Jindo dogs.">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4608212008236659"
      crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
@@ -20,29 +20,28 @@
         <div class="logo-icon-box">
           <span class="material-symbols-outlined">pets</span>
         </div>
-        <span class="logo-text"><em class="logo-k">K</em>-Dog Board</span>
+        <span class="logo-text">Show Your <em class="logo-k">Jindo</em></span>
       </a>
       <div class="search-bar">
         <span class="material-symbols-outlined search-icon">search</span>
-        <input type="text" id="search-input" placeholder="품종, 제목, 작가 검색...">
+        <input type="text" id="search-input" placeholder="Search by title or author...">
       </div>
       <button class="btn-upload" id="open-upload">
         <span class="material-symbols-outlined">add_circle</span>
-        <span>사진 올리기</span>
+        <span>Upload</span>
       </button>
-      <button class="btn-partner" id="open-partner">제휴 문의</button>
+      <button class="btn-partner" id="open-partner">Partnership</button>
     </div>
   </header>
 
-
-<div class="loading-screen" id="loading">
+  <div class="loading-screen" id="loading">
     <div class="spinner"></div>
   </div>
 
   <div class="empty-state hidden" id="empty-state">
     <div class="empty-icon">🐾</div>
-    <h2>검색 결과가 없어요</h2>
-    <p>다른 키워드나 품종을 선택해보세요.</p>
+    <h2>No results found</h2>
+    <p>Try a different keyword.</p>
   </div>
 
   <main class="masonry-grid" id="photo-grid"></main>
@@ -50,12 +49,12 @@
   <!-- Upload Modal -->
   <div class="modal-overlay hidden" id="modal-overlay">
     <div class="modal">
-      <button class="btn-icon modal-close" id="modal-close" aria-label="닫기">
+      <button class="btn-icon modal-close" id="modal-close" aria-label="Close">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M18 6 6 18M6 6l12 12"/>
         </svg>
       </button>
-      <h2 class="modal-title">🐾 K-Dog 사진 올리기</h2>
+      <h2 class="modal-title">🐾 Upload Your Photo</h2>
 
       <div class="drop-zone" id="drop-zone">
         <input type="file" id="file-input" accept="image/*" hidden>
@@ -65,32 +64,32 @@
             <circle cx="8.5" cy="8.5" r="1.5"/>
             <path d="m21 15-5-5L5 21"/>
           </svg>
-          <p>드래그하거나 <span class="browse-link" id="browse-link">파일 선택</span></p>
-          <small>PNG · JPG · WEBP · 최대 10MB</small>
+          <p>Drag & drop or <span class="browse-link" id="browse-link">browse</span></p>
+          <small>PNG · JPG · WEBP · Max 10MB</small>
         </div>
         <div class="drop-preview hidden" id="drop-preview">
-          <img id="preview-img" alt="미리보기">
-          <button class="btn-change" id="change-img">다른 사진 선택</button>
+          <img id="preview-img" alt="Preview">
+          <button class="btn-change" id="change-img">Change photo</button>
         </div>
       </div>
 
       <div class="modal-fields">
         <div class="field">
-          <label for="photo-title">제목 <span class="req">*</span></label>
-          <input type="text" id="photo-title" placeholder="예: 우리 집 진돌이" maxlength="80">
+          <label for="photo-title">Title <span class="req">*</span></label>
+          <input type="text" id="photo-title" placeholder="e.g. My Jindo at the park" maxlength="80">
         </div>
         <div class="field">
-          <label for="photo-desc">설명 <span class="opt">(선택)</span></label>
-          <textarea id="photo-desc" placeholder="사진에 대한 이야기를 들려주세요" rows="3" maxlength="300"></textarea>
+          <label for="photo-desc">Description <span class="opt">(optional)</span></label>
+          <textarea id="photo-desc" placeholder="Tell us about your photo" rows="3" maxlength="300"></textarea>
         </div>
         <div class="field">
-          <label for="author-name">이름 / 닉네임 <span class="req">*</span></label>
-          <input type="text" id="author-name" placeholder="예: 토종견사랑" maxlength="30">
+          <label for="author-name">Name / Nickname <span class="req">*</span></label>
+          <input type="text" id="author-name" placeholder="e.g. JindoLover" maxlength="30">
         </div>
       </div>
 
       <button class="btn-submit" id="submit-btn">
-        <span id="submit-label">업로드</span>
+        <span id="submit-label">Upload</span>
         <div class="btn-spinner hidden" id="btn-spinner"></div>
       </button>
     </div>
@@ -100,7 +99,7 @@
   <div class="lightbox hidden" id="lightbox">
     <div class="lightbox-bg" id="lightbox-bg"></div>
     <div class="lightbox-wrap">
-      <button class="btn-icon lightbox-close" id="lightbox-close" aria-label="닫기">
+      <button class="btn-icon lightbox-close" id="lightbox-close" aria-label="Close">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M18 6 6 18M6 6l12 12"/>
         </svg>
@@ -129,7 +128,7 @@
   <!-- Partnership Modal -->
   <div class="modal-overlay hidden" id="partner-overlay">
     <div class="modal">
-      <button class="btn-icon modal-close" id="partner-close" aria-label="닫기">
+      <button class="btn-icon modal-close" id="partner-close" aria-label="Close">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M18 6 6 18M6 6l12 12"/>
         </svg>
@@ -137,47 +136,47 @@
 
       <!-- Form View -->
       <div id="partner-form-view">
-        <h2 class="modal-title">🤝 제휴 문의</h2>
-        <p class="partner-desc">광고, 콘텐츠 협업, 이벤트 등 다양한 제휴를 환영합니다.<br>문의 내용을 남겨주시면 빠르게 연락드릴게요.</p>
+        <h2 class="modal-title">🤝 Partnership Inquiry</h2>
+        <p class="partner-desc">We welcome partnerships for advertising, content collaborations, events, and more.<br>Leave your details and we'll get back to you soon.</p>
         <div class="modal-fields">
           <div class="field">
-            <label for="partner-company">회사 / 브랜드명 <span class="req">*</span></label>
-            <input type="text" id="partner-company" placeholder="예: 멍멍 펫푸드" maxlength="60">
+            <label for="partner-company">Company / Brand <span class="req">*</span></label>
+            <input type="text" id="partner-company" placeholder="e.g. Paw & Co." maxlength="60">
           </div>
           <div class="field">
-            <label for="partner-name">담당자 이름 <span class="req">*</span></label>
-            <input type="text" id="partner-name" placeholder="예: 김담당" maxlength="30">
+            <label for="partner-name">Contact Name <span class="req">*</span></label>
+            <input type="text" id="partner-name" placeholder="e.g. Jane Smith" maxlength="30">
           </div>
           <div class="field">
-            <label for="partner-email">이메일 <span class="req">*</span></label>
-            <input type="email" id="partner-email" placeholder="예: contact@example.com" maxlength="100">
+            <label for="partner-email">Email <span class="req">*</span></label>
+            <input type="email" id="partner-email" placeholder="e.g. contact@example.com" maxlength="100">
           </div>
           <div class="field">
-            <label for="partner-type">문의 유형 <span class="req">*</span></label>
+            <label for="partner-type">Inquiry Type <span class="req">*</span></label>
             <select id="partner-type">
-              <option value="">유형을 선택해주세요</option>
-              <option value="광고 / 협찬">광고 / 협찬</option>
-              <option value="콘텐츠 제휴">콘텐츠 제휴</option>
-              <option value="이벤트 / 캠페인">이벤트 / 캠페인</option>
-              <option value="커뮤니티 파트너십">커뮤니티 파트너십</option>
-              <option value="기타">기타</option>
+              <option value="">Select a type</option>
+              <option value="Advertising / Sponsorship">Advertising / Sponsorship</option>
+              <option value="Content Partnership">Content Partnership</option>
+              <option value="Event / Campaign">Event / Campaign</option>
+              <option value="Community Partnership">Community Partnership</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <div class="field">
-            <label for="partner-message">문의 내용 <span class="req">*</span></label>
-            <textarea id="partner-message" placeholder="제안하실 내용을 자유롭게 작성해주세요." rows="4" maxlength="500"></textarea>
+            <label for="partner-message">Message <span class="req">*</span></label>
+            <textarea id="partner-message" placeholder="Tell us about your proposal." rows="4" maxlength="500"></textarea>
           </div>
         </div>
-        <button class="btn-submit" id="partner-submit">문의 보내기</button>
+        <button class="btn-submit" id="partner-submit">Send Inquiry</button>
       </div>
 
       <!-- Success View -->
       <div id="partner-success-view" class="hidden">
         <div class="partner-success">
           <div class="partner-success-icon">✅</div>
-          <h2>문의가 접수됐어요!</h2>
-          <p>빠른 시일 내에 입력하신 이메일로 연락드리겠습니다.<br>K-Dog Board에 관심 가져주셔서 감사합니다 🐾</p>
-          <button class="btn-submit" id="partner-done">확인</button>
+          <h2>Inquiry Received!</h2>
+          <p>We'll get back to you at the email you provided as soon as possible.<br>Thank you for your interest in Show Your Jindo 🐾</p>
+          <button class="btn-submit" id="partner-done">Done</button>
         </div>
       </div>
     </div>
