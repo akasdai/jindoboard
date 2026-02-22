@@ -411,6 +411,7 @@ function closePartnerModal() {
 }
 
 openPartnerBtn.addEventListener('click', openPartnerModal);
+document.getElementById('footer-contact').addEventListener('click', (e) => { e.preventDefault(); openPartnerModal(); });
 partnerCloseBtn.addEventListener('click', closePartnerModal);
 partnerOverlay.addEventListener('click', (e) => { if (e.target === partnerOverlay) closePartnerModal(); });
 partnerDoneBtn.addEventListener('click', closePartnerModal);
