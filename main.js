@@ -92,7 +92,6 @@ let allPhotos      = [];
 let currentPhotoId = null;
 let selectedFile   = null;
 let toastTimer     = null;
-let currentBreed   = '';
 
 const likedSet   = new Set(JSON.parse(localStorage.getItem(KEY_LIKED) || '[]'));
 const likeCounts = JSON.parse(localStorage.getItem(KEY_LIKES) || '{}');
@@ -129,7 +128,6 @@ const submitBtn      = document.getElementById('submit-btn');
 const submitLabel    = document.getElementById('submit-label');
 const btnSpinner     = document.getElementById('btn-spinner');
 const searchInput    = document.getElementById('search-input');
-const breedNav       = document.getElementById('breed-nav');
 const lightbox       = document.getElementById('lightbox');
 const lightboxBg     = document.getElementById('lightbox-bg');
 const lightboxClose  = document.getElementById('lightbox-close');
@@ -176,16 +174,6 @@ function resetForm() {
 openUploadBtn.addEventListener('click', openModal);
 modalCloseBtn.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
-
-// ── Breed Filter ───────────────────────────────────────────────────────────
-breedNav.querySelectorAll('.breed-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    breedNav.querySelectorAll('.breed-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    currentBreed = chip.dataset.breed;
-    renderPhotos(allPhotos);
-  });
-});
 
 // ── File Handling ──────────────────────────────────────────────────────────
 function handleFile(file) {
@@ -361,9 +349,6 @@ function renderPhotos(photos) {
   const q = searchInput.value.trim().toLowerCase();
   let list = photos;
 
-  if (currentBreed) {
-    list = list.filter(p => (p.breed || '기타') === currentBreed);
-  }
   if (q) {
     list = list.filter(p =>
       p.title.toLowerCase().includes(q) ||
@@ -379,36 +364,6 @@ function renderPhotos(photos) {
 }
 
 searchInput.addEventListener('input', () => renderPhotos(allPhotos));
-
-// ── Disqus (per-photo) ─────────────────────────────────────────────────────
-let disqusLoaded = false;
-
-function resetDisqus(photoId) {
-  const identifier = `kdog-photo-${photoId}`;
-  const url = `https://akasdai.github.io/jindoboard/#photo-${photoId}`;
-
-  if (window.DISQUS) {
-    DISQUS.reset({
-      reload: true,
-      config: function () {
-        this.page.identifier = identifier;
-        this.page.url = url;
-      }
-    });
-  } else {
-    window.disqus_config = function () {
-      this.page.identifier = identifier;
-      this.page.url = url;
-    };
-    if (!disqusLoaded) {
-      disqusLoaded = true;
-      const s = document.createElement('script');
-      s.src = 'https://jindoboard.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      document.body.appendChild(s);
-    }
-  }
-}
 
 // ── Lightbox ───────────────────────────────────────────────────────────────
 function openLightbox(photo) {
@@ -438,8 +393,6 @@ function openLightbox(photo) {
 
   lightbox.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
-
-  resetDisqus(photo.id);
 }
 
 function closeLightbox() {
