@@ -9,26 +9,25 @@
      crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <header class="header">
     <div class="header-inner">
       <a class="logo" href="#">
-        <span class="logo-icon">🐾</span>
+        <div class="logo-icon-box">
+          <span class="material-symbols-outlined">pets</span>
+        </div>
         <span class="logo-text"><em class="logo-k">K</em>-Dog Board</span>
       </a>
       <div class="search-bar">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-        </svg>
+        <span class="material-symbols-outlined search-icon">search</span>
         <input type="text" id="search-input" placeholder="품종, 제목, 작가 검색...">
       </div>
       <button class="btn-upload" id="open-upload">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M12 5v14M5 12h14"/>
-        </svg>
+        <span class="material-symbols-outlined">add_circle</span>
         <span>사진 올리기</span>
       </button>
       <button class="btn-partner" id="open-partner">제휴 문의</button>

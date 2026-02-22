@@ -321,6 +321,12 @@ function createCard(photo) {
     <img src="${esc(photo.url)}" alt="${esc(photo.title)}" loading="lazy">
     <span class="breed-badge card-breed" data-breed="${esc(breed)}">${esc(breed)}</span>
     <div class="card-overlay">
+      <button class="btn-like card-like-overlay ${liked ? 'liked' : ''}" data-id="${esc(photo.id)}" aria-label="좋아요">
+        <svg width="16" height="16" viewBox="0 0 24 24"
+             fill="${liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
       <div class="card-overlay-text">
         <h4>${esc(photo.title)}</h4>
         <small>by ${esc(photo.author)}</small>
@@ -339,10 +345,12 @@ function createCard(photo) {
   `;
 
   card.querySelector('img').addEventListener('click', () => openLightbox(photo));
-  card.querySelector('.card-overlay').addEventListener('click', () => openLightbox(photo));
-  card.querySelector('.btn-like').addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleLike(photo.id);
+  card.querySelector('.card-overlay-text').addEventListener('click', () => openLightbox(photo));
+  card.querySelectorAll('.btn-like').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleLike(photo.id);
+    });
   });
 
   return card;

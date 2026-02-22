@@ -1,13 +1,12 @@
 /* ── Variables ───────────────────────────────────────────── */
 :root {
-  --bg: #f0f1f3;
+  --bg: #f8f7f6;
   --card: #fff;
   --text: #111;
   --text-muted: #767676;
   --border: #e0e0e0;
-  --primary: #c8102e;
-  --primary-hover: #9e0b22;
-  --accent: #003087;
+  --primary: #ee9d2b;
+  --primary-hover: #d4881f;
   --radius-card: 16px;
   --radius-btn: 24px;
   --header-h: 64px;
@@ -15,7 +14,7 @@
   --shadow: 0 1px 6px rgba(0,0,0,.1), 0 3px 12px rgba(0,0,0,.07);
   --shadow-hover: 0 4px 20px rgba(0,0,0,.18);
   --transition: 0.18s ease;
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,8 +31,10 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #fff;
-  border-bottom: 1px solid var(--border);
+  background: rgba(248, 247, 246, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(238, 157, 43, 0.12);
   height: var(--header-h);
 }
 .header-inner {
@@ -56,7 +57,20 @@ body {
   white-space: nowrap;
   flex-shrink: 0;
 }
-.logo-icon { font-size: 1.4rem; }
+.logo-icon-box {
+  background: var(--primary);
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+.logo-icon-box .material-symbols-outlined {
+  font-size: 1.2rem;
+}
 .logo-text { font-style: normal; }
 .logo-k {
   font-style: normal;
@@ -71,8 +85,8 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: var(--bg);
-  border-radius: var(--radius-btn);
+  background: rgba(238, 157, 43, 0.06);
+  border-radius: 12px;
   padding: 0 16px;
   height: 44px;
   color: var(--text-muted);
@@ -80,7 +94,7 @@ body {
   transition: box-shadow var(--transition);
 }
 .search-bar:focus-within {
-  box-shadow: 0 0 0 2px rgba(0,0,0,.12);
+  box-shadow: 0 0 0 2px rgba(238, 157, 43, 0.35);
 }
 .search-bar input {
   flex: 1;
@@ -92,6 +106,10 @@ body {
   outline: none;
 }
 .search-bar input::placeholder { color: var(--text-muted); }
+.search-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
 
 .btn-upload {
   display: flex;
@@ -100,7 +118,7 @@ body {
   background: var(--primary);
   color: #fff;
   border: none;
-  border-radius: var(--radius-btn);
+  border-radius: 12px;
   padding: 0 20px;
   height: 44px;
   font-size: .875rem;
@@ -112,14 +130,17 @@ body {
   transition: background var(--transition), transform var(--transition);
 }
 .btn-upload:hover { background: var(--primary-hover); transform: scale(1.02); }
+.btn-upload .material-symbols-outlined { font-size: 1.2rem; }
 
 /* ── Breed Navigation ─────────────────────────────────────── */
 .breed-nav {
   position: sticky;
   top: var(--header-h);
   z-index: 90;
-  background: #fff;
-  border-bottom: 1px solid var(--border);
+  background: rgba(248, 247, 246, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(238, 157, 43, 0.1);
   height: var(--breed-nav-h);
   overflow: hidden;
 }
@@ -156,12 +177,13 @@ body {
 .breed-chip:hover {
   border-color: var(--primary);
   color: var(--primary);
-  background: #fff5f5;
+  background: rgba(238, 157, 43, 0.05);
 }
 .breed-chip.active {
   background: var(--primary);
   border-color: var(--primary);
   color: #fff;
+  box-shadow: 0 2px 8px rgba(238, 157, 43, 0.35);
 }
 
 /* ── Breed Badge ─────────────────────────────────────────── */
@@ -250,15 +272,17 @@ body {
   box-shadow: var(--shadow);
   cursor: pointer;
   position: relative;
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: box-shadow var(--transition);
 }
-.photo-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.photo-card:hover { box-shadow: var(--shadow-hover); }
 .photo-card img {
   width: 100%;
   display: block;
-  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  border-radius: var(--radius-card);
   background: #e8e8e8;
+  transition: transform 0.5s ease;
 }
+.photo-card:hover img { transform: scale(1.05); }
 
 /* Hover overlay */
 .card-overlay {
@@ -278,10 +302,33 @@ body {
 .card-overlay-text h4 { font-size: .88rem; font-weight: 600; }
 .card-overlay-text small { font-size: .75rem; opacity: .85; }
 
-/* Card footer */
-.card-footer {
-  padding: 10px 14px 12px;
+/* Like button inside overlay */
+.card-like-overlay {
+  pointer-events: all;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+.card-like-overlay:hover { background: var(--primary); color: #fff; }
+.card-like-overlay.liked { color: var(--primary); }
+.card-like-overlay.liked svg { fill: var(--primary); }
+
+/* Card footer (mobile only) */
+.card-footer {
+  display: none;
+  padding: 10px 14px 12px;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
@@ -372,7 +419,7 @@ body {
   transition: border-color var(--transition), background var(--transition);
 }
 .drop-zone:hover,
-.drop-zone.drag-over { border-color: var(--primary); background: #fff5f5; }
+.drop-zone.drag-over { border-color: var(--primary); background: rgba(238, 157, 43, 0.04); }
 .drop-placeholder {
   text-align: center;
   padding: 32px 24px;
@@ -435,7 +482,7 @@ body {
 }
 .field input:focus,
 .field textarea:focus,
-.field select:focus { border-color: var(--text); }
+.field select:focus { border-color: var(--primary); }
 
 .btn-submit {
   display: flex;
@@ -595,8 +642,8 @@ body {
   transition: border-color var(--transition), color var(--transition);
 }
 .btn-partner:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 /* ── Partnership Form ────────────────────────────────────── */
@@ -628,16 +675,22 @@ body {
 
 /* ── Responsive ───────────────────────────────────────────── */
 @media (max-width: 640px) {
-  /* Header: 제휴 버튼 숨김, 업로드 아이콘만 표시 */
+  /* Header */
   .search-bar { display: none; }
   .btn-upload span { display: none; }
   .btn-upload { padding: 0 14px; }
   .btn-partner { display: none; }
 
+  /* Card footer: visible on mobile */
+  .card-footer { display: flex; }
+
+  /* Card image: top corners only when footer is shown */
+  .photo-card img { border-radius: var(--radius-card) var(--radius-card) 0 0; }
+
   /* Grid */
   .masonry-grid { columns: 160px; column-gap: 10px; padding: 12px 10px 40px; }
 
-  /* Lightbox: 패딩 축소, 세로 스택 */
+  /* Lightbox */
   .lightbox { padding: 8px; }
   .lightbox-wrap {
     max-height: 96vh;
@@ -645,8 +698,6 @@ body {
   }
   .lightbox-body { flex-direction: column; max-height: none; }
   .lightbox-img-wrap img { max-height: 38vh; }
-
-  /* 정보 패널: 높이 제한 + 내부 스크롤으로 댓글 공간 확보 */
   .lightbox-info {
     width: 100%;
     border-left: none;
@@ -654,8 +705,6 @@ body {
     max-height: 22vh;
     overflow-y: auto;
   }
-
-  /* 댓글 영역 */
   .lightbox-comments { padding: 14px 16px 24px; min-height: 120px; }
 
   /* Modal */
