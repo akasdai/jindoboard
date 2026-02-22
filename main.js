@@ -64,6 +64,166 @@ const SAMPLE_PHOTOS = [
     author: 'ForestJindo', likes: 67,
     createdAt: Date.now() - 864e5 * 0.1, sample: true
   },
+  {
+    id: 's11',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Adventure_dog%21_%282411172406%29.jpg',
+    title: 'Adventure Awaits',
+    desc: 'A Jindo hitting the trail with boundless energy. These dogs were born to explore.',
+    author: 'TrailJindo', likes: 118,
+    createdAt: Date.now() - 864e5 * 12, sample: true
+  },
+  {
+    id: 's12',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/6/61/Ambush_%28278593429%29.jpg',
+    title: 'The Ambush',
+    desc: 'Crouched low and ready to pounce — the natural hunting instincts of a Jindo on full display.',
+    author: 'WildJindo', likes: 87,
+    createdAt: Date.now() - 864e5 * 11, sample: true
+  },
+  {
+    id: 's13',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Another_rest_stop_%283691126672%29.jpg',
+    title: 'Trail Break',
+    desc: 'Taking a well-earned rest on the trail. Even the most energetic Jindo needs a breather.',
+    author: 'HikingWithJindo', likes: 64,
+    createdAt: Date.now() - 864e5 * 10, sample: true
+  },
+  {
+    id: 's14',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Cattle_dog_on_the_rocks_%284413995963%29.jpg',
+    title: 'Rocky Terrain',
+    desc: 'A Jindo navigating rough terrain with ease. Sure-footed and utterly fearless.',
+    author: 'RockyJindo', likes: 142,
+    createdAt: Date.now() - 864e5 * 9, sample: true
+  },
+  {
+    id: 's15',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Cisco_%283141169167%29.jpg',
+    title: 'Natural Light Portrait',
+    desc: 'The soulful gaze of a Jindo in natural light. Intelligence and loyalty in every glance.',
+    author: 'CiscosDad', likes: 229,
+    createdAt: Date.now() - 864e5 * 8, sample: true
+  },
+  {
+    id: 's16',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/8/8e/Jindo_dog_face.jpg',
+    title: 'Up Close',
+    desc: 'An intimate close-up of a Jindo\'s expressive face. Those eyes say everything.',
+    author: 'JindoPortrait', likes: 375,
+    createdAt: Date.now() - 864e5 * 7.5, sample: true
+  },
+  {
+    id: 's17',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Korea_Jindo_Dog_1.jpg',
+    title: 'Breed Standard',
+    desc: 'A textbook-perfect Jindo showcasing the breed\'s characteristic upright ears and curled tail.',
+    author: 'JindoBreeder', likes: 198,
+    createdAt: Date.now() - 864e5 * 7, sample: true
+  },
+  {
+    id: 's18',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/At_Balboa_Pier_%282838275584%29.jpg/600px-At_Balboa_Pier_%282838275584%29.jpg',
+    title: 'Pier at Sunset',
+    desc: 'A Jindo at Balboa Pier, relaxed and regal against the ocean backdrop.',
+    author: 'BeachJindo', likes: 163,
+    createdAt: Date.now() - 864e5 * 6.5, sample: true
+  },
+  {
+    id: 's19',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Jindo_Cor%C3%A9en.jpg/600px-Jindo_Cor%C3%A9en.jpg',
+    title: 'Jindo Coréen',
+    desc: 'A beautifully composed Jindo portrait capturing the breed\'s quiet dignity and alert expression.',
+    author: 'JindoLover', likes: 257,
+    createdAt: Date.now() - 864e5 * 6, sample: true
+  },
+  {
+    id: 's20',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Korean_Jindo_Dog.jpg',
+    title: 'The Classic Jindo',
+    desc: 'A cream-coated Jindo in perfect form. Korea\'s Natural Monument No. 53 and national treasure.',
+    author: 'KoreanDogLover', likes: 401,
+    createdAt: Date.now() - 864e5 * 5.5, sample: true
+  },
+  {
+    id: 's21',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Jindo_024.JPG/600px-Jindo_024.JPG',
+    title: 'Jindo Show',
+    desc: 'A proud Jindo at a breed show, displaying the characteristic traits of this ancient Korean breed.',
+    author: 'JindoBreeder', likes: 133,
+    createdAt: Date.now() - 864e5 * 5, sample: true
+  },
+  {
+    id: 's22',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Jindo-dog1.jpg/600px-Jindo-dog1.jpg',
+    title: 'Standing Tall',
+    desc: 'A Jindo standing in full form — the upright posture and alert ears are unmistakably Jindo.',
+    author: 'JindoBreeder', likes: 88,
+    createdAt: Date.now() - 864e5 * 4.5, sample: true
+  },
+  {
+    id: 's23',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/CHUNDOONG.png/600px-CHUNDOONG.png',
+    title: 'Chundoong',
+    desc: 'A registered Korean Jindo named Chundoong. Proud lineage and impeccable form.',
+    author: 'JindoBreeder', likes: 176,
+    createdAt: Date.now() - 864e5 * 4, sample: true
+  },
+  {
+    id: 's24',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Cisco_and_Nako_%283501549756%29.jpg/600px-Cisco_and_Nako_%283501549756%29.jpg',
+    title: 'Cisco & Nako',
+    desc: 'Two Jindos, one adventure. These loyal companions explore the world side by side.',
+    author: 'CiscosDad', likes: 312,
+    createdAt: Date.now() - 864e5 * 3.5, sample: true
+  },
+  {
+    id: 's25',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Cisco_at_the_beach_%282279842668%29.jpg/600px-Cisco_at_the_beach_%282279842668%29.jpg',
+    title: 'Beach Day',
+    desc: 'A Jindo enjoying a perfect beach day. The ocean suits them just as well as the mountains.',
+    author: 'BeachJindo', likes: 289,
+    createdAt: Date.now() - 864e5 * 3, sample: true
+  },
+  {
+    id: 's26',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cisco_at_the_Ski_Hut_%283690336081%29.jpg/600px-Cisco_at_the_Ski_Hut_%283690336081%29.jpg',
+    title: 'Snow Dog',
+    desc: 'A Jindo at a mountain ski hut, perfectly at home in the cold winter landscape.',
+    author: 'WinterJindo', likes: 221,
+    createdAt: Date.now() - 864e5 * 2.5, sample: true
+  },
+  {
+    id: 's27',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Cisco_in_the_creek_%283736999192%29.jpg/600px-Cisco_in_the_creek_%283736999192%29.jpg',
+    title: 'Creek Crossing',
+    desc: 'Wading through a creek without a second thought — Jindos are fearless in the great outdoors.',
+    author: 'CiscosDad', likes: 145,
+    createdAt: Date.now() - 864e5 * 2, sample: true
+  },
+  {
+    id: 's28',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Cisco_leaping_into_the_sea_%28278615139%29.jpg/600px-Cisco_leaping_into_the_sea_%28278615139%29.jpg',
+    title: 'Sea Leap',
+    desc: 'Taking the plunge! A Jindo leaps joyfully into the sea. Pure, uninhibited freedom.',
+    author: 'BeachJindo', likes: 467,
+    createdAt: Date.now() - 864e5 * 1.5, sample: true
+  },
+  {
+    id: 's29',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Exuberance_again_%28278608585%29.jpg/600px-Exuberance_again_%28278608585%29.jpg',
+    title: 'More Exuberance',
+    desc: 'Catching some air! When a Jindo runs, it runs with everything it has.',
+    author: 'MorningWalker', likes: 334,
+    createdAt: Date.now() - 864e5 * 1, sample: true
+  },
+  {
+    id: 's30',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/White_Korea_Jindo_Dog.jpg/600px-White_Korea_Jindo_Dog.jpg',
+    title: 'White Jindo',
+    desc: 'The pure white coat of this Jindo is breathtaking — a rare and cherished variation of the breed.',
+    author: 'WhiteJindoLover', likes: 519,
+    createdAt: Date.now() - 864e5 * 0.5, sample: true
+  },
 ];
 
 // ── Storage Keys ───────────────────────────────────────────────────────────
