@@ -2,66 +2,66 @@
 const SAMPLE_PHOTOS = [
   {
     id: 's2',
-    url: 'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=600&auto=format&fit=crop',
-    title: 'Majestic Pungsan',
-    desc: 'The Pungsan, a powerful hunting dog from North Korea. Bold, fearless, and beautiful.',
-    author: 'PungsanLover', likes: 95,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Cisco_%282503567883%29.jpg/600px-Cisco_%282503567883%29.jpg',
+    title: 'Cisco on a Summer Day',
+    desc: 'A confident Jindo posing outdoors — calm, alert, and full of personality.',
+    author: 'CiscosDad', likes: 95,
     createdAt: Date.now() - 864e5 * 5, sample: true
   },
   {
     id: 's3',
-    url: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600&auto=format&fit=crop',
-    title: 'Morning Walk',
-    desc: 'A lively Jindo enjoying a morning walk. Loyal and intelligent — a true Korean native.',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Exuberance_%28278608587%29.jpg/600px-Exuberance_%28278608587%29.jpg',
+    title: 'Full Speed!',
+    desc: 'Pure joy in motion. This Jindo is living its best life running free.',
     author: 'MorningWalker', likes: 74,
     createdAt: Date.now() - 864e5 * 4, sample: true
   },
   {
     id: 's4',
-    url: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600&auto=format&fit=crop',
-    title: 'Golden Hwanggu',
-    desc: 'A golden Jindo running free in open fields. The iconic amber coat shines in the sun.',
-    author: 'FieldKeeper', likes: 203,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Desert_puppy_%28278608593%29.jpg/600px-Desert_puppy_%28278608593%29.jpg',
+    title: 'Desert Pup',
+    desc: 'A young Jindo puppy exploring wide open landscapes. Curious and fearless from day one.',
+    author: 'JindoPupLover', likes: 203,
     createdAt: Date.now() - 864e5 * 3, sample: true
   },
   {
     id: 's5',
-    url: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=600&auto=format&fit=crop',
-    title: 'Fluffy Sapsali',
-    desc: 'The Sapsali, a Korean natural monument said to ward off evil spirits. Fluffy and gentle.',
-    author: 'SapsaliLove', likes: 156,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Cliffs_%28279492043%29.jpg/600px-Cliffs_%28279492043%29.jpg',
+    title: 'King of the Cliffs',
+    desc: 'A Jindo surveying its territory from rocky cliffs. Proud, majestic, and utterly fearless.',
+    author: 'CliffRunner', likes: 156,
     createdAt: Date.now() - 864e5 * 2, sample: true
   },
   {
     id: 's6',
-    url: 'https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&auto=format&fit=crop',
-    title: 'Donggyeongi at the Beach',
-    desc: 'The tailless Gyeongju Donggyeongi — a rare Korean native breed with a thousand-year history.',
-    author: 'DonggyeongiPark', likes: 89,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/At_Balboa_Pier_%282838273604%29.jpg/600px-At_Balboa_Pier_%282838273604%29.jpg',
+    title: 'Pier Portrait',
+    desc: 'A beautiful Jindo at Balboa Pier, striking a natural, regal pose by the ocean.',
+    author: 'BeachJindo', likes: 89,
     createdAt: Date.now() - 864e5 * 1, sample: true
   },
   {
     id: 's7',
-    url: 'https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?w=600&auto=format&fit=crop',
-    title: 'Jeju Dog at Hallasan',
-    desc: 'A Jeju native dog resting at the foot of Mt. Hallasan. Found only on Jeju Island.',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Best_friends_%282411215500%29.jpg/600px-Best_friends_%282411215500%29.jpg',
+    title: 'Best Friends',
+    desc: 'Two Jindo dogs side by side — the loyalty of Jindos knows no bounds.',
     author: 'JejuDogLover', likes: 312,
     createdAt: Date.now() - 864e5 * 0.5, sample: true
   },
   {
     id: 's8',
-    url: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop',
-    title: 'Jindo Puppy',
-    desc: 'A bold Jindo puppy — adorable and spirited from day one.',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/CHULMA.jpg/600px-CHULMA.jpg',
+    title: 'Chulma',
+    desc: 'A classic Jindo portrait. Intelligent eyes and an air of quiet, unshakeable confidence.',
     author: 'BabyJindo', likes: 441,
     createdAt: Date.now() - 864e5 * 0.2, sample: true
   },
   {
     id: 's9',
-    url: 'https://images.unsplash.com/photo-1588269845464-8993565cac3a?w=600&auto=format&fit=crop',
-    title: 'Sapsali in the Forest',
-    desc: 'A Sapsali exploring the green forest, long fur flowing freely in the breeze.',
-    author: 'ForestSapsali', likes: 67,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Christmas_dog_%28336908613%29.jpg/600px-Christmas_dog_%28336908613%29.jpg',
+    title: 'Holiday Walk',
+    desc: 'A Jindo enjoying the fresh outdoors. Always ready for the next adventure.',
+    author: 'ForestJindo', likes: 67,
     createdAt: Date.now() - 864e5 * 0.1, sample: true
   },
 ];
