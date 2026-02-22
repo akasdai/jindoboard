@@ -120,7 +120,6 @@ const dropPreview    = document.getElementById('drop-preview');
 const previewImg     = document.getElementById('preview-img');
 const changeImgBtn   = document.getElementById('change-img');
 const browseLink     = document.getElementById('browse-link');
-const breedInput     = document.getElementById('photo-breed');
 const titleInput     = document.getElementById('photo-title');
 const descInput      = document.getElementById('photo-desc');
 const authorInput    = document.getElementById('author-name');
@@ -132,7 +131,6 @@ const lightbox       = document.getElementById('lightbox');
 const lightboxBg     = document.getElementById('lightbox-bg');
 const lightboxClose  = document.getElementById('lightbox-close');
 const lightboxImg    = document.getElementById('lightbox-img');
-const lightboxBreed  = document.getElementById('lightbox-breed');
 const lightboxTitle  = document.getElementById('lightbox-title');
 const lightboxDesc   = document.getElementById('lightbox-desc');
 const lightboxAuthor = document.getElementById('lightbox-author');
@@ -164,7 +162,6 @@ function resetForm() {
   previewImg.src = '';
   dropPreview.classList.add('hidden');
   dropPlaceholder.classList.remove('hidden');
-  breedInput.value = '';
   titleInput.value = '';
   descInput.value = '';
   authorInput.value = '';
@@ -236,7 +233,6 @@ function setSubmitLoading(on) {
 
 submitBtn.addEventListener('click', async () => {
   if (!selectedFile)              { showToast('사진을 선택해주세요.');           return; }
-  if (!breedInput.value)          { showToast('품종을 선택해주세요.');            return; }
   if (!titleInput.value.trim())   { showToast('제목을 입력해주세요.');            return; }
   if (!authorInput.value.trim())  { showToast('이름 또는 닉네임을 입력해주세요.'); return; }
 
@@ -246,7 +242,6 @@ submitBtn.addEventListener('click', async () => {
 
     const newPhoto = {
       id:        'u_' + Date.now(),
-      breed:     breedInput.value,
       url:       dataUrl,
       title:     titleInput.value.trim(),
       desc:      descInput.value.trim(),
@@ -300,14 +295,12 @@ function esc(str) {
 function createCard(photo) {
   const liked = likedSet.has(photo.id);
   const count = getLikeCount(photo);
-  const breed = photo.breed || '기타';
   const card  = document.createElement('div');
   card.className = 'photo-card';
   card.dataset.id = photo.id;
 
   card.innerHTML = `
     <img src="${esc(photo.url)}" alt="${esc(photo.title)}" loading="lazy">
-    <span class="breed-badge card-breed" data-breed="${esc(breed)}">${esc(breed)}</span>
     <div class="card-overlay">
       <button class="btn-like card-like-overlay ${liked ? 'liked' : ''}" data-id="${esc(photo.id)}" aria-label="좋아요">
         <svg width="16" height="16" viewBox="0 0 24 24"
@@ -319,16 +312,6 @@ function createCard(photo) {
         <h4>${esc(photo.title)}</h4>
         <small>by ${esc(photo.author)}</small>
       </div>
-    </div>
-    <div class="card-footer">
-      <span class="card-title">${esc(photo.title)}</span>
-      <button class="btn-like ${liked ? 'liked' : ''}" data-id="${esc(photo.id)}" aria-label="좋아요">
-        <svg width="15" height="15" viewBox="0 0 24 24"
-             fill="${liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-        </svg>
-        <span class="like-count">${count}</span>
-      </button>
     </div>
   `;
 
@@ -374,14 +357,6 @@ function openLightbox(photo) {
   lightboxDesc.textContent = photo.desc || '';
   lightboxDesc.style.display = photo.desc ? '' : 'none';
   lightboxAuthor.textContent = `by ${photo.author}`;
-
-  if (photo.breed) {
-    lightboxBreed.textContent = photo.breed;
-    lightboxBreed.dataset.breed = photo.breed;
-    lightboxBreed.classList.remove('hidden');
-  } else {
-    lightboxBreed.classList.add('hidden');
-  }
 
   const count = getLikeCount(photo);
   lightboxLikeCount.textContent = count;

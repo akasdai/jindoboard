@@ -132,40 +132,6 @@ body {
 .btn-upload .material-symbols-outlined { font-size: 1.2rem; }
 
 
-/* ── Breed Badge ─────────────────────────────────────────── */
-.breed-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 9px;
-  border-radius: 20px;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .02em;
-  line-height: 1.4;
-}
-.breed-badge[data-breed="진돗개"] { background: #fff3cd; color: #7d5a00; }
-.breed-badge[data-breed="풍산개"] { background: #e8f4f8; color: #0a558c; }
-.breed-badge[data-breed="삽살개"] { background: #f0e6ff; color: #6f42c1; }
-.breed-badge[data-breed="동경이"] { background: #d1f7e0; color: #1b6b3a; }
-.breed-badge[data-breed="제주개"] { background: #ffe0b2; color: #bf5000; }
-.breed-badge[data-breed="기타"]   { background: #f0f0f0; color: #555; }
-.breed-badge:not([data-breed])    { background: #f0f0f0; color: #555; }
-
-/* Card breed badge */
-.card-breed {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 6;
-  pointer-events: none;
-  box-shadow: 0 1px 4px rgba(0,0,0,.15);
-}
-
-/* Lightbox breed badge */
-.lightbox-breed {
-  align-self: flex-start;
-  margin-bottom: 4px;
-}
 
 /* ── Loading ──────────────────────────────────────────────── */
 .loading-screen {
@@ -271,22 +237,6 @@ body {
 .card-like-overlay.liked { color: var(--primary); }
 .card-like-overlay.liked svg { fill: var(--primary); }
 
-/* Card footer (mobile only) */
-.card-footer {
-  display: none;
-  padding: 10px 14px 12px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-.card-title {
-  font-size: .85rem;
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: 1;
-}
 .btn-like {
   display: flex;
   align-items: center;
@@ -609,12 +559,6 @@ body {
   .btn-upload span { display: none; }
   .btn-upload { padding: 0 14px; }
   .btn-partner { display: none; }
-
-  /* Card footer: visible on mobile */
-  .card-footer { display: flex; }
-
-  /* Card image: top corners only when footer is shown */
-  .photo-card img { border-radius: var(--radius-card) var(--radius-card) 0 0; }
 
   /* Grid */
   .masonry-grid { columns: 160px; column-gap: 10px; padding: 12px 10px 40px; }
