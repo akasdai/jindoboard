@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Show Your Jindo</title>
+  <meta name="description" content="Stories, tips, and community posts from Jindo dog lovers around the world.">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7PJFYBBKQ0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7PJFYBBKQ0');
+  </script>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "vmfv4dwsul");
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4608212008236659"
+     crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a class="logo" href="index.html">
+        <div class="logo-icon-box">
+          <span class="material-symbols-outlined">pets</span>
+        </div>
+        <span class="logo-text">Show Your <em class="logo-k">Jindo</em></span>
+      </a>
+      <div class="search-bar">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input type="text" id="search-input" placeholder="Search posts...">
+      </div>
+      <button class="btn-upload" id="open-write">
+        <span class="material-symbols-outlined">edit</span>
+        <span>Write Post</span>
+      </button>
+      <a class="btn-guide" href="jindo-guide.html">
+        <span class="material-symbols-outlined">menu_book</span>
+        <span>Jindo Guide</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="blog-page">
+    <div class="blog-page-header">
+      <h1>Community Blog</h1>
+      <p>Stories, tips, and experiences from Jindo lovers around the world</p>
+    </div>
+
+    <!-- Ad Unit -->
+    <div class="ad-banner" style="margin-bottom:32px;">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4608212008236659"
+           data-ad-slot="AUTO"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="blog-grid" id="blog-grid"></div>
+
+    <div class="empty-state hidden" id="blog-empty">
+      <div class="empty-icon">✍️</div>
+      <h2>No posts yet</h2>
+      <p>Be the first to share a story with the community!</p>
+      <button class="btn-submit" id="empty-write" style="max-width:200px;margin:0 auto;">Write a Post</button>
+    </div>
+  </div>
+
+  <!-- Write Post Modal -->
+  <div class="modal-overlay hidden" id="write-overlay">
+    <div class="modal">
+      <button class="btn-icon modal-close" id="write-close" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <h2 class="modal-title">✍️ Write a Post</h2>
+      <div class="modal-fields">
+        <div class="field">
+          <label for="post-title">Title <span class="req">*</span></label>
+          <input type="text" id="post-title" placeholder="e.g. My experience hiking with my Jindo" maxlength="100">
+        </div>
+        <div class="field">
+          <label for="post-content">Content <span class="req">*</span></label>
+          <textarea id="post-content" rows="8" maxlength="3000" placeholder="Share your story, tips, or thoughts about Jindo dogs..."></textarea>
+          <small style="color:var(--text-muted);font-size:.75rem;" id="content-count">0 / 3000</small>
+        </div>
+        <div class="field">
+          <label for="post-author">Name / Nickname <span class="req">*</span></label>
+          <input type="text" id="post-author" placeholder="e.g. JindoLover" maxlength="30">
+        </div>
+      </div>
+      <button class="btn-submit" id="post-submit">Publish</button>
+    </div>
+  </div>
+
+  <!-- Post Detail Modal -->
+  <div class="modal-overlay hidden" id="post-overlay">
+    <div class="modal modal-wide">
+      <button class="btn-icon modal-close" id="post-close" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <div id="post-detail"></div>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast"></div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a class="footer-brand" href="index.html">Show Your Jindo</a>
+      <nav class="footer-links">
+        <a href="about.html">About</a>
+        <a href="blog.html">Blog</a>
+        <a href="jindo-guide.html">Jindo Guide</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <p class="footer-copy">© 2026 Show Your Jindo. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="blog.js"></script>
+</body>
+</html>
