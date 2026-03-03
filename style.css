@@ -606,6 +606,85 @@ body {
   color: var(--text-muted);
 }
 
+/* ── Breed Spotlight Section ─────────────────────────────── */
+.breed-section {
+  background: #fff;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 28px 0 0;
+}
+.breed-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+.breed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.breed-header h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.btn-learn-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  font-size: .85rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity var(--transition);
+}
+.btn-learn-more:hover { opacity: .75; }
+.breed-lead {
+  font-size: .93rem;
+  line-height: 1.75;
+  color: #555;
+  margin-bottom: 32px;
+  max-width: 820px;
+}
+.breed-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.breed-card {
+  background: var(--bg);
+  border-radius: 16px;
+  padding: 24px 20px;
+  border: 1px solid var(--border);
+  transition: box-shadow var(--transition);
+}
+.breed-card:hover { box-shadow: var(--shadow); }
+.breed-card-icon { font-size: 1.8rem; display: block; margin-bottom: 10px; }
+.breed-card h3 {
+  font-size: .97rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.breed-card p {
+  font-size: .85rem;
+  line-height: 1.65;
+  color: #555;
+}
+
+/* ── Ad Banner Placeholder ───────────────────────────────── */
+.ad-banner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+.ad-banner ins { display: block; }
+
 /* ── Utils ────────────────────────────────────────────────── */
 .hidden { display: none !important; }
 
