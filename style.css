@@ -449,6 +449,23 @@ body {
   z-index: 10;
   background: rgba(255,255,255,.9);
 }
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 310;
+  background: rgba(255,255,255,.15);
+  border: none;
+  border-radius: 50%;
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.lightbox-nav:hover { background: rgba(255,255,255,.3); }
+.lightbox-prev { left: 16px; }
+.lightbox-next { right: 16px; }
 .lightbox-body {
   display: flex;
   flex: 0 0 auto;
@@ -749,6 +766,29 @@ body {
   justify-content: flex-end;
 }
 
+/* ── Sort Bar ────────────────────────────────────────────── */
+.sort-bar {
+  max-width: 1700px;
+  margin: 12px auto 0;
+  padding: 0 16px;
+  display: flex;
+  gap: 8px;
+}
+.sort-btn {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 16px;
+  font-size: .8rem;
+  font-weight: 600;
+  font-family: var(--font);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+.sort-btn:hover { border-color: var(--primary); color: var(--primary); }
+.sort-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
 /* ── Ad Banner Placeholder ───────────────────────────────── */
 .ad-banner {
   max-width: 1200px;
@@ -763,13 +803,26 @@ body {
 
 /* ── Responsive ───────────────────────────────────────────── */
 @media (max-width: 640px) {
-  /* Header */
-  .search-bar { display: none; }
+  /* Header — two-row layout */
+  .header { height: auto; }
+  .header-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .search-bar {
+    order: 10;
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin: 0;
+  }
   .btn-upload span { display: none; }
   .btn-upload { padding: 0 14px; }
   .btn-guide span:last-child { display: none; }
   .btn-guide { padding: 0 12px; }
   .btn-partner { display: none; }
+  .loading-screen { height: calc(100vh - 104px); }
 
   /* Grid */
   .masonry-grid { columns: 160px; column-gap: 10px; padding: 12px 10px 40px; }
@@ -793,4 +846,8 @@ body {
 /* Modal */
   .modal { padding: 24px 18px; border-radius: 20px; }
 
+  /* Lightbox nav */
+  .lightbox-nav { width: 36px; height: 36px; }
+  .lightbox-prev { left: 8px; }
+  .lightbox-next { right: 8px; }
 }

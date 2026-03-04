@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Show Your Jindo — Share Your Jindo Photos</title>
   <meta name="description" content="A community for Jindo dog lovers around the world. Share and discover photos of beautiful Jindo dogs.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>">
+  <meta property="og:title" content="Show Your Jindo — Share Your Jindo Photos">
+  <meta property="og:description" content="A global community for Jindo dog lovers. Upload your photos, discover beautiful Jindos, and connect with enthusiasts around the world.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://showyourjindo.com">
+  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/e/ea/Korean_Jindo_Dog.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Show Your Jindo — Share Your Jindo Photos">
+  <meta name="twitter:description" content="A global community for Jindo dog lovers. Upload your photos, discover beautiful Jindos, and connect with enthusiasts around the world.">
+  <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/e/ea/Korean_Jindo_Dog.jpg">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7PJFYBBKQ0"></script>
   <script>
@@ -61,6 +71,11 @@
   <section class="intro-section">
     <p class="intro-text">A global community for <strong>Jindo dog</strong> lovers — upload your photos, discover beautiful Jindos, and connect with enthusiasts around the world.</p>
   </section>
+
+  <div class="sort-bar">
+    <button class="sort-btn active" data-sort="newest">Newest</button>
+    <button class="sort-btn" data-sort="likes">Most Liked</button>
+  </div>
 
   <div class="loading-screen" id="loading">
     <div class="spinner"></div>
@@ -126,6 +141,12 @@
   <!-- Lightbox -->
   <div class="lightbox hidden" id="lightbox">
     <div class="lightbox-bg" id="lightbox-bg"></div>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
     <div class="lightbox-wrap">
       <button class="btn-icon lightbox-close" id="lightbox-close" aria-label="Close">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">

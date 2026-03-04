@@ -234,8 +234,10 @@ const KEY_LIKES  = 'kdb_likes';
 // ── State ──────────────────────────────────────────────────────────────────
 let allPhotos      = [];
 let currentPhotoId = null;
+let currentIndex   = -1;
 let selectedFile   = null;
 let toastTimer     = null;
+let sortMode       = 'newest';
 
 const likedSet   = new Set(JSON.parse(localStorage.getItem(KEY_LIKED) || '[]'));
 const likeCounts = JSON.parse(localStorage.getItem(KEY_LIKES) || '{}');
@@ -274,6 +276,8 @@ const searchInput    = document.getElementById('search-input');
 const lightbox       = document.getElementById('lightbox');
 const lightboxBg     = document.getElementById('lightbox-bg');
 const lightboxClose  = document.getElementById('lightbox-close');
+const lightboxPrev   = document.getElementById('lightbox-prev');
+const lightboxNext   = document.getElementById('lightbox-next');
 const lightboxImg    = document.getElementById('lightbox-img');
 const lightboxTitle  = document.getElementById('lightbox-title');
 const lightboxDesc   = document.getElementById('lightbox-desc');
@@ -471,10 +475,21 @@ function createCard(photo) {
   return card;
 }
 
+// ── Sort ───────────────────────────────────────────────────────────────────
+const sortBtns = document.querySelectorAll('.sort-btn');
+sortBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    sortBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    sortMode = btn.dataset.sort;
+    renderPhotos(allPhotos);
+  });
+});
+
 // ── Render ─────────────────────────────────────────────────────────────────
 function renderPhotos(photos) {
   const q = searchInput.value.trim().toLowerCase();
-  let list = photos;
+  let list = [...photos];
 
   if (q) {
     list = list.filter(p =>
@@ -482,6 +497,12 @@ function renderPhotos(photos) {
       p.author.toLowerCase().includes(q) ||
       (p.desc && p.desc.toLowerCase().includes(q))
     );
+  }
+
+  if (sortMode === 'likes') {
+    list.sort((a, b) => getLikeCount(b) - getLikeCount(a));
+  } else {
+    list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
   }
 
   grid.innerHTML = '';
@@ -492,8 +513,28 @@ function renderPhotos(photos) {
 searchInput.addEventListener('input', () => renderPhotos(allPhotos));
 
 // ── Lightbox ───────────────────────────────────────────────────────────────
+function getRenderedList() {
+  const q = searchInput.value.trim().toLowerCase();
+  let list = [...allPhotos];
+  if (q) {
+    list = list.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.author.toLowerCase().includes(q) ||
+      (p.desc && p.desc.toLowerCase().includes(q))
+    );
+  }
+  if (sortMode === 'likes') {
+    list.sort((a, b) => getLikeCount(b) - getLikeCount(a));
+  } else {
+    list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  }
+  return list;
+}
+
 function openLightbox(photo) {
   currentPhotoId = photo.id;
+  const list = getRenderedList();
+  currentIndex = list.findIndex(p => p.id === photo.id);
 
   lightboxImg.src = photo.url;
   lightboxTitle.textContent = photo.title;
@@ -509,6 +550,9 @@ function openLightbox(photo) {
   lightboxLike.classList.toggle('liked', liked);
   lightboxLike.querySelector('svg').setAttribute('fill', liked ? 'currentColor' : 'none');
 
+  lightboxPrev.style.display = currentIndex > 0 ? '' : 'none';
+  lightboxNext.style.display = currentIndex < list.length - 1 ? '' : 'none';
+
   lightbox.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
@@ -517,16 +561,29 @@ function closeLightbox() {
   lightbox.classList.add('hidden');
   document.body.style.overflow = '';
   currentPhotoId = null;
+  currentIndex = -1;
+}
+
+function navigateLightbox(dir) {
+  const list = getRenderedList();
+  const next = currentIndex + dir;
+  if (next >= 0 && next < list.length) openLightbox(list[next]);
 }
 
 lightboxClose.addEventListener('click', closeLightbox);
 lightboxBg.addEventListener('click', closeLightbox);
+lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+lightboxNext.addEventListener('click', () => navigateLightbox(1));
 lightboxLike.addEventListener('click', () => {
   if (currentPhotoId) toggleLike(currentPhotoId);
 });
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') { closeLightbox(); closeModal(); }
+  if (!lightbox.classList.contains('hidden')) {
+    if (e.key === 'ArrowLeft')  navigateLightbox(-1);
+    if (e.key === 'ArrowRight') navigateLightbox(1);
+  }
 });
 
 // ── Load & Render ──────────────────────────────────────────────────────────
