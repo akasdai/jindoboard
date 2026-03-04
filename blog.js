@@ -106,6 +106,7 @@ const postSubmitBtn = document.getElementById('post-submit');
 const contentCount  = document.getElementById('content-count');
 const emptyWriteBtn = document.getElementById('empty-write');
 
+const blogSearchCountEl = document.getElementById('blog-search-count');
 const postOverlay   = document.getElementById('post-overlay');
 const postCloseBtn  = document.getElementById('post-close');
 const postDetail    = document.getElementById('post-detail');
@@ -313,12 +314,21 @@ function renderPosts(posts) {
     );
   }
 
+  const q2 = searchInput.value.trim();
+  if (q2) {
+    blogSearchCountEl.textContent = `${list.length} post${list.length !== 1 ? 's' : ''} found`;
+    blogSearchCountEl.classList.remove('hidden');
+  } else {
+    blogSearchCountEl.classList.add('hidden');
+  }
+
   grid.innerHTML = '';
   emptyEl.classList.toggle('hidden', list.length > 0);
 
   list.forEach(post => {
     const liked = likedSet.has(post.id);
     const count = getLikeCount(post);
+    const isUserPost = !post.sample;
     const card  = document.createElement('div');
     card.className = 'blog-card';
     card.innerHTML = `
@@ -335,6 +345,12 @@ function renderPosts(posts) {
           </svg>
           <span class="like-count">${count}</span>
         </button>
+        ${isUserPost ? `<button class="blog-card-delete" data-id="${esc(post.id)}" aria-label="Delete post">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
+            <path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
+          </svg>
+        </button>` : ''}
       </div>
     `;
 
@@ -346,6 +362,18 @@ function renderPosts(posts) {
       e.stopPropagation();
       toggleLike(post.id);
     });
+
+    const delBtn = card.querySelector('.blog-card-delete');
+    if (delBtn) {
+      delBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!confirm('Delete this post?')) return;
+        const saved = JSON.parse(localStorage.getItem(KEY_POSTS) || '[]');
+        localStorage.setItem(KEY_POSTS, JSON.stringify(saved.filter(p => p.id !== post.id)));
+        loadAndRender();
+        showToast('Post deleted.');
+      });
+    }
 
     grid.appendChild(card);
   });

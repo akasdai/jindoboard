@@ -16,6 +16,28 @@
   --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+[data-theme="dark"] {
+  --bg: #111;
+  --card: #1c1c1c;
+  --text: #f0f0f0;
+  --text-muted: #999;
+  --border: #2e2e2e;
+  --shadow: 0 1px 6px rgba(0,0,0,.4), 0 3px 12px rgba(0,0,0,.3);
+  --shadow-hover: 0 4px 20px rgba(0,0,0,.6);
+}
+[data-theme="dark"] .header { background: rgba(17,17,17,0.85); }
+[data-theme="dark"] .modal,
+[data-theme="dark"] .lightbox-wrap { background: #1c1c1c; }
+[data-theme="dark"] .site-footer { background: #1c1c1c; }
+[data-theme="dark"] .field input,
+[data-theme="dark"] .field textarea,
+[data-theme="dark"] .field select { background: #111; color: var(--text); }
+[data-theme="dark"] .btn-icon { background: #2a2a2a; color: var(--text); }
+[data-theme="dark"] .btn-icon:hover { background: #333; }
+[data-theme="dark"] .lightbox-bg { background: rgba(0,0,0,.95); }
+[data-theme="dark"] .blog-card { background: #1c1c1c; }
+[data-theme="dark"] .search-bar { background: rgba(255,255,255,.05); }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -519,6 +541,8 @@ body {
   border-top: 1px solid var(--border);
 }
 .lightbox-author { font-size: .83rem; color: var(--text-muted); font-weight: 500; }
+.lightbox-date { font-size: .78rem; color: var(--text-muted); }
+.char-count { font-size: .72rem; color: var(--text-muted); text-align: right; }
 .lightbox-actions { display: flex; align-items: center; gap: 4px; }
 .btn-delete-card {
   position: absolute;
@@ -684,6 +708,42 @@ body {
   font-size: .78rem;
   color: var(--text-muted);
 }
+.footer-social {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.footer-social a {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  transition: color var(--transition);
+}
+.footer-social a:hover { color: var(--primary); }
+.footer-partner-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: .83rem;
+  font-weight: 500;
+  font-family: var(--font);
+  color: var(--text-muted);
+  padding: 0;
+  transition: color var(--transition);
+}
+.footer-partner-btn:hover { color: var(--primary); }
+.btn-darkmode {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: border-color var(--transition), color var(--transition);
+}
+.btn-darkmode:hover { border-color: var(--primary); color: var(--primary); }
 
 /* ── Guide Button ────────────────────────────────────────── */
 .btn-guide {
@@ -792,6 +852,18 @@ body {
 .blog-card-likes.liked { color: var(--primary); }
 .blog-card-likes.liked svg { fill: var(--primary); }
 .blog-card-likes svg { transition: fill var(--transition); }
+.blog-card-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ccc;
+  padding: 3px 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition);
+}
+.blog-card-delete:hover { color: #dc2626; }
 
 /* ── Blog Image Zone ─────────────────────────────────────── */
 .blog-img-zone {
@@ -868,6 +940,68 @@ body {
   justify-content: flex-end;
 }
 
+/* ── Tag Filter Bar ─────────────────────────────────────── */
+.tag-filter-bar {
+  max-width: 1700px;
+  margin: 10px auto 0;
+  padding: 0 16px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.tag-filter-btn {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: .78rem;
+  font-weight: 600;
+  font-family: var(--font);
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+.tag-filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.tag-filter-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+/* ── Tag Picker (upload form) ───────────────────────────── */
+.tag-picker { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-chip {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: .78rem;
+  font-weight: 600;
+  font-family: var(--font);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+.tag-chip:hover { border-color: var(--primary); color: var(--primary); }
+.tag-chip.selected { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+/* ── Tag badge on card ──────────────────────────────────── */
+.card-tags {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  pointer-events: none;
+}
+.card-tag {
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
 /* ── Search Count ────────────────────────────────────────── */
 .search-count {
   max-width: 1700px;
@@ -908,6 +1042,13 @@ body {
   text-align: center;
 }
 .ad-banner ins { display: block; }
+
+/* ── Load More Spinner ───────────────────────────────────── */
+.load-more-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0 48px;
+}
 
 /* ── Utils ────────────────────────────────────────────────── */
 .hidden { display: none !important; }

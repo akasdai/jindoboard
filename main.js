@@ -232,12 +232,17 @@ const KEY_LIKED  = 'kdb_liked';
 const KEY_LIKES  = 'kdb_likes';
 
 // ── State ──────────────────────────────────────────────────────────────────
+const PAGE_SIZE = 30;
 let allPhotos      = [];
+let renderedList   = [];
+let displayCount   = PAGE_SIZE;
 let currentPhotoId = null;
 let currentIndex   = -1;
 let selectedFile   = null;
 let toastTimer     = null;
 let sortMode       = 'newest';
+let activeTag      = '';
+let selectedTags   = new Set();
 
 const likedSet   = new Set(JSON.parse(localStorage.getItem(KEY_LIKED) || '[]'));
 const likeCounts = JSON.parse(localStorage.getItem(KEY_LIKES) || '{}');
@@ -284,9 +289,14 @@ const lightboxDesc   = document.getElementById('lightbox-desc');
 const lightboxAuthor = document.getElementById('lightbox-author');
 const lightboxLike   = document.getElementById('lightbox-like');
 const lightboxLikeCount = document.getElementById('lightbox-like-count');
+const lightboxDownload = document.getElementById('lightbox-download');
 const lightboxShare  = document.getElementById('lightbox-share');
 const toastEl        = document.getElementById('toast');
 const searchCountEl  = document.getElementById('search-count');
+const lightboxDate   = document.getElementById('lightbox-date');
+const titleCount     = document.getElementById('title-count');
+const descCount      = document.getElementById('desc-count');
+const authorCount    = document.getElementById('author-count');
 
 // ── Toast ──────────────────────────────────────────────────────────────────
 function showToast(msg, duration = 2600) {
@@ -315,8 +325,35 @@ function resetForm() {
   titleInput.value = '';
   descInput.value = '';
   authorInput.value = '';
+  selectedTags.clear();
+  document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('selected'));
+  [titleCount, descCount, authorCount].forEach(el => { if (el) el.textContent = el.textContent.replace(/^\d+/, '0'); });
   setSubmitLoading(false);
 }
+
+// ── Tag picker (upload form) ────────────────────────────────────────────────
+document.querySelectorAll('.tag-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const tag = chip.dataset.tag;
+    if (selectedTags.has(tag)) { selectedTags.delete(tag); chip.classList.remove('selected'); }
+    else { selectedTags.add(tag); chip.classList.add('selected'); }
+  });
+});
+
+// ── Tag filter bar ──────────────────────────────────────────────────────────
+const tagFilterBtns = document.querySelectorAll('.tag-filter-btn');
+tagFilterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tagFilterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTag = btn.dataset.filter;
+    renderPhotos(allPhotos);
+  });
+});
+
+titleInput.addEventListener('input',  () => { titleCount.textContent  = `${titleInput.value.length} / 80`; });
+descInput.addEventListener('input',   () => { descCount.textContent   = `${descInput.value.length} / 300`; });
+authorInput.addEventListener('input', () => { authorCount.textContent = `${authorInput.value.length} / 30`; });
 
 openUploadBtn.addEventListener('click', openModal);
 modalCloseBtn.addEventListener('click', closeModal);
@@ -396,6 +433,7 @@ submitBtn.addEventListener('click', async () => {
       title:     titleInput.value.trim(),
       desc:      descInput.value.trim(),
       author:    authorInput.value.trim(),
+      tags:      [...selectedTags],
       likes:     0,
       createdAt: Date.now()
     };
@@ -454,6 +492,7 @@ function createCard(photo) {
   card.innerHTML = `
     <img src="${esc(photo.url)}" alt="${esc(photo.title)}" loading="lazy">
     ${isPopular ? '<span class="badge-popular">🔥 Popular</span>' : ''}
+    ${photo.tags && photo.tags.length ? `<div class="card-tags">${photo.tags.map(t => `<span class="card-tag">${esc(t)}</span>`).join('')}</div>` : ''}
     ${isUserPhoto ? `<button class="btn-delete-card" data-id="${esc(photo.id)}" aria-label="Delete photo">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/>
@@ -525,6 +564,10 @@ function renderPhotos(photos) {
     );
   }
 
+  if (activeTag) {
+    list = list.filter(p => p.tags && p.tags.includes(activeTag));
+  }
+
   if (sortMode === 'likes') {
     list.sort((a, b) => getLikeCount(b) - getLikeCount(a));
   } else {
@@ -539,9 +582,18 @@ function renderPhotos(photos) {
     searchCountEl.classList.add('hidden');
   }
 
+  renderedList = list;
+  displayCount = PAGE_SIZE;
   grid.innerHTML = '';
   emptyEl.classList.toggle('hidden', list.length > 0);
-  list.forEach(p => grid.appendChild(createCard(p)));
+  list.slice(0, displayCount).forEach(p => grid.appendChild(createCard(p)));
+}
+
+function loadMore() {
+  const nextBatch = renderedList.slice(displayCount, displayCount + PAGE_SIZE);
+  if (!nextBatch.length) return;
+  displayCount += PAGE_SIZE;
+  nextBatch.forEach(p => grid.appendChild(createCard(p)));
 }
 
 searchInput.addEventListener('input', () => renderPhotos(allPhotos));
@@ -556,6 +608,9 @@ function getRenderedList() {
       p.author.toLowerCase().includes(q) ||
       (p.desc && p.desc.toLowerCase().includes(q))
     );
+  }
+  if (activeTag) {
+    list = list.filter(p => p.tags && p.tags.includes(activeTag));
   }
   if (sortMode === 'likes') {
     list.sort((a, b) => getLikeCount(b) - getLikeCount(a));
@@ -575,6 +630,12 @@ function openLightbox(photo) {
   lightboxDesc.textContent = photo.desc || '';
   lightboxDesc.style.display = photo.desc ? '' : 'none';
   lightboxAuthor.textContent = `by ${photo.author}`;
+  if (photo.createdAt) {
+    lightboxDate.textContent = new Date(photo.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    lightboxDate.style.display = '';
+  } else {
+    lightboxDate.style.display = 'none';
+  }
 
   const count = getLikeCount(photo);
   lightboxLikeCount.textContent = count;
@@ -603,6 +664,18 @@ function navigateLightbox(dir) {
   const next = currentIndex + dir;
   if (next >= 0 && next < list.length) openLightbox(list[next]);
 }
+
+lightboxDownload.addEventListener('click', () => {
+  const photo = allPhotos.find(p => p.id === currentPhotoId);
+  if (!photo) return;
+  const a = document.createElement('a');
+  a.href = photo.url;
+  a.download = (photo.title || 'jindo').replace(/[^a-z0-9]/gi, '_') + '.jpg';
+  a.target = '_blank';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+});
 
 lightboxShare.addEventListener('click', async () => {
   const photo = allPhotos.find(p => p.id === currentPhotoId);
@@ -717,6 +790,35 @@ partnerSubmitBtn.addEventListener('click', async () => {
   }
 });
 
-// ── Init ───────────────────────────────────────────────────────────────────
-loadingEl.classList.add('hidden');
-loadAndRender();
+// ── Dark Mode ──────────────────────────────────────────────────────────────
+const btnDarkmode = document.getElementById('btn-darkmode');
+function applyTheme(dark) {
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  const moon = btnDarkmode.querySelector('.icon-moon');
+  const sun  = btnDarkmode.querySelector('.icon-sun');
+  if (moon) moon.style.display = dark ? 'none' : '';
+  if (sun)  sun.style.display  = dark ? ''     : 'none';
+}
+const savedTheme = localStorage.getItem('kdb_theme') === 'dark';
+applyTheme(savedTheme);
+btnDarkmode.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  applyTheme(!isDark);
+  localStorage.setItem('kdb_theme', !isDark ? 'dark' : 'light');
+});
+
+// ── Infinite Scroll ────────────────────────────────────────────────────────
+const sentinel       = document.getElementById('load-sentinel');
+const loadMoreSpinner = document.getElementById('load-more-spinner');
+const scrollObserver = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting && displayCount < renderedList.length) {
+    loadMoreSpinner.classList.remove('hidden');
+    setTimeout(() => {
+      loadMore();
+      loadMoreSpinner.classList.add('hidden');
+    }, 300);
+  }
+}, { rootMargin: '200px' });
+scrollObserver.observe(sentinel);
+
+// ── Dark Mode ──────────────────────────────────────────────────────────────
