@@ -821,4 +821,6 @@ const scrollObserver = new IntersectionObserver((entries) => {
 }, { rootMargin: '200px' });
 scrollObserver.observe(sentinel);
 
-// ── Dark Mode ──────────────────────────────────────────────────────────────
+// ── Init ───────────────────────────────────────────────────────────────────
+loadingEl.classList.add('hidden');
+loadAndRender();
