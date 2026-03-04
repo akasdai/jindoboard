@@ -389,12 +389,18 @@ dropZone.addEventListener('drop', (e) => {
 });
 
 // ── Image Resize (canvas) ──────────────────────────────────────────────────
-function resizeImage(file, maxDim = 1200, quality = 0.82) {
+const MIN_SIDE = 600; // reject images smaller than this on shortest side
+function resizeImage(file, maxDim = 1400, quality = 0.88) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     const url = URL.createObjectURL(file);
     img.onload = () => {
       let { width, height } = img;
+      if (Math.min(width, height) < MIN_SIDE) {
+        URL.revokeObjectURL(url);
+        reject(new Error(`Image resolution is too low. Please upload a photo at least ${MIN_SIDE}px on the shortest side.`));
+        return;
+      }
       if (width > maxDim || height > maxDim) {
         if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
         else { width = Math.round(width * maxDim / height); height = maxDim; }
@@ -402,9 +408,13 @@ function resizeImage(file, maxDim = 1200, quality = 0.82) {
       const canvas = document.createElement('canvas');
       canvas.width = width;
       canvas.height = height;
-      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, width, height);
       URL.revokeObjectURL(url);
-      resolve(canvas.toDataURL('image/jpeg', quality));
+      const webp = canvas.toDataURL('image/webp', quality);
+      resolve(webp.startsWith('data:image/webp') ? webp : canvas.toDataURL('image/jpeg', quality));
     };
     img.onerror = reject;
     img.src = url;
@@ -447,7 +457,7 @@ submitBtn.addEventListener('click', async () => {
     showToast('🐾 Photo uploaded!');
   } catch (err) {
     console.error(err);
-    showToast('Upload failed. Please try again.');
+    showToast(err.message || 'Upload failed. Please try again.');
     setSubmitLoading(false);
   }
 });
