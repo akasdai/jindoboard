@@ -77,6 +77,7 @@ const KEY_LIKES      = 'kdb_blog_likes';
 let allPosts       = [];
 let currentPostId  = null;
 let toastTimer     = null;
+let selectedImage  = null; // base64 data URL
 
 const likedSet   = new Set(JSON.parse(localStorage.getItem(KEY_LIKED) || '[]'));
 const likeCounts = JSON.parse(localStorage.getItem(KEY_LIKES) || '{}');
@@ -109,6 +110,13 @@ const postOverlay   = document.getElementById('post-overlay');
 const postCloseBtn  = document.getElementById('post-close');
 const postDetail    = document.getElementById('post-detail');
 
+const blogImgZone      = document.getElementById('blog-img-zone');
+const blogImgInput     = document.getElementById('blog-img-input');
+const blogImgPlaceholder = document.getElementById('blog-img-placeholder');
+const blogImgPreview   = document.getElementById('blog-img-preview');
+const blogImgThumb     = document.getElementById('blog-img-thumb');
+const blogImgChange    = document.getElementById('blog-img-change');
+
 // ── Toast ─────────────────────────────────────────────────────────────────────
 function showToast(msg, duration = 2600) {
   clearTimeout(toastTimer);
@@ -131,6 +139,43 @@ function excerpt(text, len = 160) {
   return flat.length > len ? flat.slice(0, len) + '…' : flat;
 }
 
+// ── Image Resize ──────────────────────────────────────────────────────────────
+function resizeBlogImage(file, maxDim = 1200, quality = 0.82) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > maxDim || height > maxDim) {
+        if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
+        else { width = Math.round(width * maxDim / height); height = maxDim; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width; canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+function handleBlogImage(file) {
+  if (!file || !file.type.startsWith('image/')) { showToast('Please select an image.'); return; }
+  if (file.size > 10 * 1024 * 1024) { showToast('File size must be 10MB or less.'); return; }
+  resizeBlogImage(file).then(dataUrl => {
+    selectedImage = dataUrl;
+    blogImgThumb.src = dataUrl;
+    blogImgPlaceholder.classList.add('hidden');
+    blogImgPreview.classList.remove('hidden');
+  }).catch(() => showToast('Failed to load image.'));
+}
+
+blogImgZone.addEventListener('click', () => blogImgInput.click());
+blogImgChange.addEventListener('click', (e) => { e.stopPropagation(); blogImgInput.click(); });
+blogImgInput.addEventListener('change', (e) => handleBlogImage(e.target.files[0]));
+
 // ── Write Modal ───────────────────────────────────────────────────────────────
 function openWriteModal() {
   writeOverlay.classList.remove('hidden');
@@ -146,6 +191,11 @@ function closeWriteModal() {
   contentCount.textContent = '0 / 3000';
   postSubmitBtn.disabled = false;
   postSubmitBtn.textContent = 'Publish';
+  selectedImage = null;
+  blogImgInput.value = '';
+  blogImgThumb.src = '';
+  blogImgPlaceholder.classList.remove('hidden');
+  blogImgPreview.classList.add('hidden');
 }
 
 openWriteBtn.addEventListener('click', openWriteModal);
@@ -169,6 +219,7 @@ postSubmitBtn.addEventListener('click', () => {
   const newPost = {
     id: 'up_' + Date.now(),
     title, content, author,
+    image: selectedImage || null,
     createdAt: Date.now(),
     likes: 0
   };
@@ -189,6 +240,7 @@ function openPost(post) {
   const count = getLikeCount(post);
 
   postDetail.innerHTML = `
+    ${post.image ? `<img class="post-detail-cover" src="${esc(post.image)}" alt="${esc(post.title)}">` : ''}
     <h2 class="post-detail-title">${esc(post.title)}</h2>
     <div class="post-detail-meta">
       <span class="post-detail-author">by ${esc(post.author)}</span>
@@ -270,6 +322,7 @@ function renderPosts(posts) {
     const card  = document.createElement('div');
     card.className = 'blog-card';
     card.innerHTML = `
+      ${post.image ? `<img class="blog-card-cover" src="${esc(post.image)}" alt="${esc(post.title)}">` : ''}
       <div class="blog-card-title">${esc(post.title)}</div>
       <div class="blog-card-excerpt">${esc(excerpt(post.content))}</div>
       <div class="blog-card-meta">

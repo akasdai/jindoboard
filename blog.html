@@ -110,6 +110,24 @@
           <small style="color:var(--text-muted);font-size:.75rem;" id="content-count">0 / 3000</small>
         </div>
         <div class="field">
+          <label>Cover Image <span class="opt">(optional)</span></label>
+          <div class="blog-img-zone" id="blog-img-zone">
+            <input type="file" id="blog-img-input" accept="image/*" hidden>
+            <div class="blog-img-placeholder" id="blog-img-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".4">
+                <rect x="3" y="3" width="18" height="18" rx="2.5"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="m21 15-5-5L5 21"/>
+              </svg>
+              <span>Click to add a cover image</span>
+            </div>
+            <div class="blog-img-preview hidden" id="blog-img-preview">
+              <img id="blog-img-thumb" alt="Preview">
+              <button class="btn-change" id="blog-img-change">Change image</button>
+            </div>
+          </div>
+        </div>
+        <div class="field">
           <label for="post-author">Name / Nickname <span class="req">*</span></label>
           <input type="text" id="post-author" placeholder="e.g. JindoLover" maxlength="30">
         </div>

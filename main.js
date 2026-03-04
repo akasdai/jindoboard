@@ -284,7 +284,9 @@ const lightboxDesc   = document.getElementById('lightbox-desc');
 const lightboxAuthor = document.getElementById('lightbox-author');
 const lightboxLike   = document.getElementById('lightbox-like');
 const lightboxLikeCount = document.getElementById('lightbox-like-count');
+const lightboxShare  = document.getElementById('lightbox-share');
 const toastEl        = document.getElementById('toast');
+const searchCountEl  = document.getElementById('search-count');
 
 // ── Toast ──────────────────────────────────────────────────────────────────
 function showToast(msg, duration = 2600) {
@@ -447,8 +449,17 @@ function createCard(photo) {
   card.className = 'photo-card';
   card.dataset.id = photo.id;
 
+  const isPopular  = getLikeCount(photo) >= 200;
+  const isUserPhoto = !photo.sample;
   card.innerHTML = `
     <img src="${esc(photo.url)}" alt="${esc(photo.title)}" loading="lazy">
+    ${isPopular ? '<span class="badge-popular">🔥 Popular</span>' : ''}
+    ${isUserPhoto ? `<button class="btn-delete-card" data-id="${esc(photo.id)}" aria-label="Delete photo">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/>
+        <path d="M9 6V4h6v2"/>
+      </svg>
+    </button>` : ''}
     <div class="card-overlay">
       <button class="btn-like card-like-overlay ${liked ? 'liked' : ''}" data-id="${esc(photo.id)}" aria-label="Like">
         <svg width="16" height="16" viewBox="0 0 24 24"
@@ -463,7 +474,22 @@ function createCard(photo) {
     </div>
   `;
 
-  card.querySelector('img').addEventListener('click', () => openLightbox(photo));
+  const deleteBtn = card.querySelector('.btn-delete-card');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!confirm('Delete this photo?')) return;
+      const saved = JSON.parse(localStorage.getItem(KEY_PHOTOS) || '[]');
+      localStorage.setItem(KEY_PHOTOS, JSON.stringify(saved.filter(p => p.id !== photo.id)));
+      loadAndRender();
+      showToast('Photo deleted.');
+    });
+  }
+
+  const imgEl = card.querySelector('img');
+  imgEl.addEventListener('load',  () => imgEl.classList.add('loaded'));
+  imgEl.addEventListener('error', () => imgEl.classList.add('loaded'));
+  imgEl.addEventListener('click', () => openLightbox(photo));
   card.querySelector('.card-overlay-text').addEventListener('click', () => openLightbox(photo));
   card.querySelectorAll('.btn-like').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -503,6 +529,14 @@ function renderPhotos(photos) {
     list.sort((a, b) => getLikeCount(b) - getLikeCount(a));
   } else {
     list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  }
+
+  const q2 = searchInput.value.trim();
+  if (q2) {
+    searchCountEl.textContent = `${list.length} photo${list.length !== 1 ? 's' : ''} found`;
+    searchCountEl.classList.remove('hidden');
+  } else {
+    searchCountEl.classList.add('hidden');
   }
 
   grid.innerHTML = '';
@@ -569,6 +603,18 @@ function navigateLightbox(dir) {
   const next = currentIndex + dir;
   if (next >= 0 && next < list.length) openLightbox(list[next]);
 }
+
+lightboxShare.addEventListener('click', async () => {
+  const photo = allPhotos.find(p => p.id === currentPhotoId);
+  if (!photo) return;
+  const shareText = `${photo.title} — Show Your Jindo`;
+  const shareUrl  = 'https://showyourjindo.com';
+  if (navigator.share) {
+    try { await navigator.share({ title: shareText, url: shareUrl }); } catch {}
+  } else {
+    navigator.clipboard.writeText(shareUrl).then(() => showToast('Link copied!'));
+  }
+});
 
 lightboxClose.addEventListener('click', closeLightbox);
 lightboxBg.addEventListener('click', closeLightbox);
